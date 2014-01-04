@@ -32,5 +32,6 @@ function outFileName = fastgunzip(inFileName, outputFolder)
     % if the system gunzip failed (or using pc), use matlab's gunzip
     if ispc || res ~= 0
         outFileName = gunzip(inFileName, outputFolder);
+        outFileName = outFileName{1};
     end 
 end

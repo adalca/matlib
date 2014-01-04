@@ -31,5 +31,6 @@ function outFileName = fastgzip(inFileName, outputFolder)
     % if the system gzip failed (or using pc), use matlab's gzip
     if ispc || res ~= 0
         outFileName = gzip(inFileName, outputFolder);
+        outFileName = outFileName{1};
     end 
 end
