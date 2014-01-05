@@ -7,27 +7,40 @@ function fim = imfilterSep(im, varargin)
 %   fim = imfilterSep(im, filt) uses the filter filt in each dimension of
 %   im.
 %
-%   Contact: Adrian Dalca, adalca.mit.edu
+%   fim = imfilterSep(im, filt, ..., shape) allows for specifying a shape string 
+%	as taken by convn's third parameter.
+%
+%   Author: Adrian V. Dalca, http://www.mit.edu/~adalca/
 
     imDims = ndims(im);
+    
+    if ischar(varargin{end})
+        shape = varargin{end};
+        inputFilters = varargin(1:numel(varargin) - 1);
+    else
+        shape = 'same';
+        inputFilters = varargin;
+    end
+        
+    
     
     % if only one separable filter provided, assume it is to be used in
     % each dimension.
     onesVec = ones(1, ndims(im));
     filters = cell(1, imDims);
-    if nargin == 2 && imDims > 1
-        assert(isvector(varargin{1}), 'second input must be a vector');
+    if numel(inputFilters) == 1 && imDims > 1
+        assert(isvector(inputFilters{1}), 'second input must be a vector');
         for i = 1:ndims(im)
             reshapeVec = onesVec;
-            reshapeVec(i) = numel(varargin{1});
-            filters{i} = reshape(varargin{1}, reshapeVec);
+            reshapeVec(i) = numel(inputFilters{1});
+            filters{i} = reshape(inputFilters{1}, reshapeVec);
         end     
         
     % otherwise assume we are provided with the right number of filters in
     % the right order. 
     else
-        assert(numel(varargin) == imDims);
-        filters = varargin;
+        assert(numel(inputFilters) == imDims);
+        filters = inputFilters;
     end
 
     
@@ -35,7 +48,7 @@ function fim = imfilterSep(im, varargin)
     % perform the filtering
     fim = im;
     for i = 1:imDims
-        fim = convn(fim, filters{i}, 'same');
+        fim = convn(fim, filters{i}, shape);
     end     
 end 
 
