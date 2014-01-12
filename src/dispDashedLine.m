@@ -1,10 +1,18 @@
 function dispDashedLine(fid)
-% prints 80 characters
+% DISPDASHEDLINE prints 80 dash characters and newline
+%   dispDashedLine(fid) prints a 80 dashed-characters newline to the given file 
+%   identifier
 %
+% Example:
+%   >> dispDashedLine(1)
+%   --------------------------------------------------------------------------------
 %
-% Adrian Dalca
-% note: this seems faster than repmat, etc.
+% See Also: fopen
+%
+% Contact: http://adalca.mit.edu
 
+
+    % Note: this seems faster than repmat, etc.
     fprintf(fid, ['-----------------------------------------------', ...
         '---------------------------------\n']);
     
