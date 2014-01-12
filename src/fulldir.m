@@ -1,9 +1,13 @@
-function d = fulldir(path)
+function varargout = fulldir(path)
 % FULLDIR get files and folder with pull path
-%   d = fulldir() get files and folders in current path. Acts the same
-%   as d=dir(), but includes full path for files in d.name.
+%   fulldir() list files and folders in current path. Acts the same
+%   as dir(), but includes full path for files in d.name.
 %
-%   d = fulldir(path) allows for specification of the path to list
+%   d = fulldir() returns attributes about the current path. see dir() for attribute details.
+%
+%   fulldir(path) allows for specification of the path to list
+%
+%   d = fulldir(path) allows for specification of the path to return
 %
 % See Also: dir
 %
@@ -29,7 +33,11 @@ function d = fulldir(path)
     % if no output argument, just list names
     if nargout == 0
         for e = 1:numel(d)
-            fprintf(d(e).name);
+            fprintf('%s\n', d(e).name);
         end
+        
+    % else, return
+    else
+        varargout{1} = d;
     end
     
