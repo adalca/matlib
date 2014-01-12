@@ -6,7 +6,7 @@ volStruct is simple a struct carrying volume information in specific fields. Thi
 Specification
 -------------
 
-Assuming you have a volume `vol` that is `nDims` dimensions and has `nFeatures` features, thus the total number of dims is `nDims + 1`. Assume the intrinsic volume has nElems elements per feature. In other words, `numel(vol) == nElems * nFeatures`.
+Assuming you have a volume `vol` that is `nDims` dimensions and has `nFeatures` features, thus the total number of dimensions is `nDims + 1`. Assume the intrinsic volume has `nElems` elements per feature. In other words, `numel(vol) == nElems * nFeatures`.
 Then volStruct is:
 
 	volStruct.features 	- the volume restructures in 2D, being nElems x nFeatures.
