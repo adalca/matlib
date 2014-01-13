@@ -22,15 +22,18 @@ function [vol, rangeStart, rangeEnd] = setSubvolume(vol, subVol, varargin)
 
 
 
+
 	% check dimension and size assumption. 
-    assert(all(ndims(vol) == ndims(subVol)), ...
+    assert(ndims(vol) >= ndims(subVol), ...
         sprintf('volume dimensions don''t agree: %i vs %i', ndims(vol), ndims(subVol)));
     
-    assert(all(size(vol) >= size(subVol)), ...
+    sizeVol = size(vol);
+    assert(all(sizeVol(1:ndims(subVol)) >= size(subVol)), ...
         sprintf('imLarge (%ix%ix%i) should be larger than imSmall (%ix%ix%i)', ...
         size(vol), size(subVol)));    
 
-    
+    % get size of subVol in the space of vol
+    sizeSubVol = sizeInDim(subVol, ndims(vol));
     
     % parse the inputs and prepare range start and end
     switch nargin
@@ -39,10 +42,10 @@ function [vol, rangeStart, rangeEnd] = setSubvolume(vol, subVol, varargin)
             rangeEnd = varargin{2};
            
         case 3 % assume varargin{1} is center
-            [rangeStart, rangeEnd] = subRange(size(subVol), varargin{1});
+            [rangeStart, rangeEnd] = subRange(sizeSubVol, varargin{1});
             
         case 2 % assume no center given, take center of large volume
-            [rangeStart, rangeEnd] = subRange(size(subVol), size(vol)/2);
+            [rangeStart, rangeEnd] = subRange(sizeSubVol, sizeVol/2);
             
         otherwise
             error('Number of arguments should be 2, 3 or 4. Given: %i', nargin);
