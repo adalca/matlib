@@ -2,7 +2,7 @@
 % Preforms a number of function that has to do with extracting and
 % inserting subarrays into a subarray of arbitary dimensions
 %
-% 
+% Contact: {klbouman, adalca}@csail.mit.edu
 
 function [array, idxMax] = actionSubArray(action,array,startInd,endInd,subArray,dim)
     
