@@ -1,0 +1,67 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: clusterLinearRegression.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: clusterLinearRegression.m</td>
+            <td class="subheader-left"><a href="matlab:edit clusterLinearRegression.m">View code for clusterLinearRegression.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">clusterLinearRegression.m</div>
+      <div class="helptext"><pre><!--helptext -->  CLUSTERLINEARREGRESSION simultaneous cluster and linear regression
+    clusterIdx = clusterLinearRegression(X, Y, K) simultaneously
+    cluster and linear regression fitting on [X, Y], looking for K, each of
+    which is fit to a linear regression.
+ 
+    clusterIdx = clusterLinearRegression(X, Y, K, clusterParam, clusterVal)
+        allows for several optional inputs (see below)
+ 
+    [clusterIdx, h] = clusterLinearRegression(...), if verbose == true, h,
+        the handle for the plot, is returned.
+ 
+    inputs:
+        X - Nx1 of independent variable
+        Y - Nx1 of dependent variable
+        K - the number of cluster
+ 
+    optional Param Value input pairs:
+        'nMaxReps', integer - number of maximum reps for the algorithm. 
+            default: 100
+        'nXfit', integer - the number of points for evaluating regresison
+            lines and computing inner distances
+            default: 1000
+        'verbose', logical - display data at each iteration or not, with
+         1/4-second interruptions
+ 
+    Algorithm:
+        similar to k-means, initialize some linear regression lines, 
+        associate each point to a regression lines based on euclidean
+        distance, and re-fit regressions.
+ 
+    Initialization:
+        current initialization might be limited!!! Currently, fit one
+        regression line, and slightly alter the slope for different
+        clusters. 
+        TODO: It may be better to choose 2 random points or something like
+        that, although that will be more unstable.
+ 
+    Example:
+        x = linspace(0, 1, 100)';
+        r = rand(100, 1);
+        y = zeros(size(x));
+        y(r &lt; 0.5) = -0.1 + 2.0*x(r &lt; 0.5);
+        y(r &gt;= 0.5) = -0.15 + 1.5*x(r &gt;= 0.5);
+        y = y + normrnd(0, 0.1, 100, 1);
+        cIdx = clusterLinearRegression(x, y, 2);
+ 
+    Author: Adrian V. Dalca
+    Edit: May 5, 2013</pre></div><!--after help -->
+   </body>
+</html>

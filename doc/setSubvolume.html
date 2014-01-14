@@ -1,0 +1,39 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: setSubvolume.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: setSubvolume.m</td>
+            <td class="subheader-left"><a href="matlab:edit setSubvolume.m">View code for setSubvolume.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">setSubvolume.m</div>
+      <div class="helptext"><pre><!--helptext -->  SETSUBVOLUME replace a subvolume of the main volume.
+    [vol, rangeStart, rangeEnd] = setSubvolume(vol, subVol) set the central subvolume of vol 
+        by subVol. vol can be any dimensions, and subVol has to be of the same dimensions.
+        subVol must be smaller than or equal to vol.
+ 
+    [vol, rangeStart, rangeEnd] = setSubvolume(vol, subVol, center) allows the specification of
+        the subvolume center in the space of the main volume. Must have length(center) ==
+        ndims(vol). 
+        
+    [vol, rangeStart, rangeEnd] = setSubvolume(vol, subVol, rangeStart, rangeEnd) specifies the
+    exact start and end of the subVol in the main volume. Must have length(rangeStart) ==
+    ndims(vol), and the same with rangeEnd. 
+ 
+    Example: [vol, rangeStart, rangeEnd] = setSubvolume(rand(11,11), zeros(5, 5), [8, 8]);
+        
+ 	TODO: reconcile with actionSubArray
+ 
+    
+ 
+    Author: Adrian Dalca. <a href="http://www.mit.edu/~adalca">http://www.mit.edu/~adalca</a></pre></div><!--after help --><!--seeAlso--><div class="footerlinktitle">See Also</div><div class="footerlink"> <a href="matlab:doc cropMask">cropMask</a>, <a href="matlab:doc subRange">subRange</a></div>
+   </body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: cropMask.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: cropMask.m</td>
+            <td class="subheader-left"><a href="matlab:edit cropMask.m">View code for cropMask.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">cropMask.m</div>
+      <div class="helptext"><pre><!--helptext -->  CROPMASK small binary mask centered in large image. 
+    [cMask, cStart, cEnd] = cropMask(largeSize, smallSize) returns a binary mask of the
+    size given by largeSize, with true box in the center and false otherwise - essentially a
+    crop mask. The box is of size smallSize. Returns cMask, which is of size largeSize, and
+    cStart and cEnd which are vectors of the same length as the largeSize vector. input vectors
+    should be of the same length N, but N can be anything &gt;= 2.
+        
+    [cMask, cStart, cEnd] = cropMask(largeSize, smallSize, center) centers the true box at
+    location set by center. All three variables should have the same input size.
+ 
+    Example: [cMask, cStart, cEnd] = cropMask([11, 11], [5, 5]); 
+        
+    
+ 
+    Author: Adrian Dalca. <a href="http://www.mit.edu/~adalca">http://www.mit.edu/~adalca</a></pre></div><!--after help --><!--seeAlso--><div class="footerlinktitle">See Also</div><div class="footerlink"> <a href="matlab:doc setSubvolume">setSubvolume</a>, <a href="matlab:doc subRange">subRange</a></div>
+   </body>
+</html>

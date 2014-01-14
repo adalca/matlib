@@ -1,0 +1,37 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: mm.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: mm.m</td>
+            <td class="subheader-left"><a href="matlab:edit mm.m">View code for mm.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">mm.m</div>
+      <div class="helptext"><pre><!--helptext -->  MM decrement variable in caller workspace
+    mm(varName) will decremember the variable with the given name in the 
+        caller's workspace. In other works, simulates the minus minus (--) operator in C
+ 
+  Example:
+    &gt;&gt; x = 1;
+    &gt;&gt; mm('x');
+    &gt;&gt; x
+    x =
+           0
+ 
+  Warning: Due to the evalin('caller', ...) command, this function is much, much, much slower than
+    just typing x = x - 1 in the caller workspace. However, in situations where the rest of the code
+    takes much longer at any rate, this can be handy (e.g. for complicated functions).
+ 
+  
+ 
+  Contact: <a href="http://adalca.mit.edu">http://adalca.mit.edu</a></pre></div><!--after help --><!--seeAlso--><div class="footerlinktitle">See Also</div><div class="footerlink"> <a href="matlab:doc pp">pp</a></div>
+   </body>
+</html>

@@ -1,0 +1,43 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: ifelse.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: ifelse.m</td>
+            <td class="subheader-left"><a href="matlab:edit ifelse.m">View code for ifelse.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">ifelse.m</div>
+      <div class="helptext"><pre><!--helptext -->  IFELSE replicates 'ternary if' from C
+    value = ifelse(condition, valueIfTrue, valueIfFalse) replicates the C "ternary if" operator. 
+    Specifically:
+        value = condition ? valueIfTrue: valueIfFalse
+    meaning valueIFTrue is returned if condition is true, and valueIfFalse is returned otherwise. 
+ 
+    Note: due to MATLAB execution, the valueIfTrue and valueIfFalse are actually both executed 
+    before the function call (in the caller), but only one is saved to the result. 
+    For example, 
+        value = ifelse(memory &gt; 8, rand(100, 100), rand(10, 10)) 
+    will create both random matrices (in the caller workspace) before calling ifelse. This can
+    sometimes be costly or evan impossible to execute due to dependencies on the condition, and in
+    this case consider using the 4-argument call below.
+ 
+    value = ifelse(condition, valueIfTrue, valueIfFalse, streval) allows for specifying the values
+    as commands to be evaluated (in caller's workspace). This allows for specifying the value
+    expressions as strings so that they only get executed if needed. For example:
+        value = ifelse(memory &gt; 8, 'rand(100, 100)', 'rand(10, 10)', true);
+    then only the necesary random matrix is created. Also, the calls are evaluated in the caller
+    workspace, so that relevant dependent variables can be used.
+ 
+    Note: ifelse(cnd, vt, vf, false) is the same as ifelse(cnd, vt, vf)
+ 
+    Contact: Adrian V. Dalca, <a href="http://adalca.mit.edu">http://adalca.mit.edu</a>, adalca@mit.edu</pre></div><!--after help -->
+   </body>
+</html>
