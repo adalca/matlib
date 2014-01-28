@@ -1,4 +1,4 @@
-function croppedVol = cropVolume(vol, rangeStart, rangeEnd)
+function [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeEnd)
 %
 %
 % TODO: reconcile with actionSubArray and those functions
