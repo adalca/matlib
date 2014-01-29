@@ -5,7 +5,7 @@ classdef verboseIter < handle
 %	Example:
 %	v = verboseIter([1, 2, 7, 8])
 %	while v.hasNext()
-%		[s, i] = v.next();
+%		[s, i] = vi.next();
 %	end
 %	v.close();
 %
