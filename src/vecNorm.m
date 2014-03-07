@@ -1,4 +1,4 @@
-function norms = vecNorm(X, dim, norm_type)
+function varargout = vecNorm(X, dim, norm_type)
 % VECNORM return the norm of the vectors which are along the
 % dimension dim. 
 %   norms = vecNorm(X, dim, norm_type) returns the norms of the vectors in matrix
@@ -6,6 +6,9 @@ function norms = vecNorm(X, dim, norm_type)
 %   vectors are column-vectors and if dim = 2, vectors are row-vectors. 
 %   norm_typecan be anything that matlab's NORM takes (e.g. 1, 2, Inf) or 
 %   missing, which defaults to Euclidean (2-Norm).
+%
+%   [norms, normalizedX] = vecNorm(X, dim, norm_type) also returns a normalized X
+%
 
     if ~exist('norm_type', 'var');
         norm_type = 2;  % euclidean default
@@ -43,5 +46,13 @@ function norms = vecNorm(X, dim, norm_type)
             end
 
         end
+    end
+    varargout{1} = norms;
+    
+    % returned normalized vec
+    if nargout == 2
+        repvec = ones(1, ndims(X));
+        repvec(dim) = size(X, dim);
+        varargout{2} = X ./ repmat(norms, repvec);
     end
     
