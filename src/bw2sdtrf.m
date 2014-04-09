@@ -1,17 +1,22 @@
-function dst = bw2sdtrf(bwimg)
+function dst = bw2sdtrf(bwimg, sc)
 % BW2SDTRF compute a signed distance transform 
 %   dst = bw2sdtrf(bwimg) computes the signed distance transform from the surface between the
-%   binary elements of logical bwimg, which can be of any dimentions that bwdist accepts. Note
-%   that the function assumes isotropic matrix elements (e.g. be wary of non-isotropic voxels
-%   in medical imaging).
+%   binary elements of logical bwimg, which can be of any dimentions that bwdist accepts. 
+%   By default, the distance computation assumes isotropic voxels. 
 %
-%   Note: the distance transform on either side of the surface will be +1/-1 - i.e. there are
-%   no voxels for which the dst should be 0.
+%   dst = bw2sdtrf(bwimg, voxSize). allows for specification of non-isotropic voxel size. In this
+%   case, bwdistsc (by Yuriy Mishchenko - see MATLAB Central File Exchange) will be used instead of 
+%   bwdist. 
+%
+%   Note: the distance transform on either side of the surface will be +1/-1 (or whatever ths 
+%   size is) - i.e. there are no voxels for which the dst should be 0.
 %   
-%   Runtime: currently the function uses bwdist twice. If there is a quick way to compute the
-%   surface, bwdist could be used only once.
+%   Runtime: currently the function uses bwdist/bwdistsc twice. If there is a quick way to 
+%   compute the surface, bwdist could be used only once.
 %
-% Contact: Adrian Dalca, adalca@mit.edu, http://adalca.mit.edu
+%   See Also: bwdist, bwdistsc
+%
+% Contact: Adrian Dalca, http://adalca.mit.edu
 
 
     % assumption: 1. voxels are isotropic; 
@@ -26,12 +31,20 @@ function dst = bw2sdtrf(bwimg)
         bwimg = logical(bwimg);
     end
     
+    fcn = @bwdist; args = {};
+    if nargin == 2,
+        msg = 'function bwdistsc not found, please visit matlab file exchange';
+        assert(exist('bwdistsc', 'file') == 2, msg);
+        fcn = @bwdistsc;
+        args = {sc};
+    end
+    
     % get the positive distances
-    posdst = bwdist(bwimg);
+    posdst = fcn(bwimg, args{:});
     
     % get surface just outside positive elements and get negative distances (within bwimg)
-    outerSurface = posdst == 1;
-    negdst = bwdist(outerSurface);
+    outerSurface = posdst == min(sc);
+    negdst = fcn(outerSurface, args{:});
     
     % compute the final signed distance transform
     dst = posdst.*(~bwimg) - negdst.*(bwimg);
