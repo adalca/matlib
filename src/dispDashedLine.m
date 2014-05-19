@@ -11,6 +11,11 @@ function dispDashedLine(fid)
 %
 % Contact: http://adalca.mit.edu
 
+    if nargin == 0
+        fid = 1;
+    end
+    
+
 
     % Note: this seems faster than repmat, etc.
     fprintf(fid, ['-----------------------------------------------', ...
