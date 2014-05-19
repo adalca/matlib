@@ -15,8 +15,6 @@ function dispDashedLine(fid)
         fid = 1;
     end
     
-
-
     % Note: this seems faster than repmat, etc.
     fprintf(fid, ['-----------------------------------------------', ...
         '---------------------------------\n']);
