@@ -57,6 +57,7 @@ function [points, t] = eval(controlPts, varargin)
         % this uses the total distance between control points, which is an upper bound on the
         % curve length (I think)
         totalDist = sum(sqrt(ssd(controlPts(2:end, :)', controlPts(1:end-1, :)')));
+        totalDist = max(totalDist, 1);
         
         % get about 100 points per voxel.
         nDrawPoints = ceil(totalDist .* bezier.pointsPerVoxelDist);

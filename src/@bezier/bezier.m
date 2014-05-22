@@ -14,8 +14,6 @@ classdef bezier < handle
     %
     % TODO: Might extend to bezier surfaces, but for now everything defaults to curve.
     %
-    % TODO: 
-    %
     % Author: Adrian V. Dalca, adalca@csail.mit.edu
         
     properties (Constant)

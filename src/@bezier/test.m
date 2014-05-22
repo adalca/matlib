@@ -18,6 +18,10 @@ function test(testIDs)
         figfun = @figuresc;
     end
 
+    % run all tests, if no test specified
+    if nargin == 0
+        testIDs = 1:4;
+    end
 
     % display actual images for some 2D examples
     if sum(testIDs == 1) > 0
