@@ -40,7 +40,6 @@ function [vol, points, t] = draw(controlPts, varargin)
     
     % input checking
     narginchk(1, 3);
-    assert(all(controlPts(:) >= 1), 'All control points must be >= 1 for drawing');
     
     % if there are several bezier curves (in cells), return all of them
     if iscell(controlPts)
@@ -54,6 +53,7 @@ function [vol, points, t] = draw(controlPts, varargin)
     end
     
     % more input checking
+    assert(all(controlPts(:) >= 1), 'All control points must be >= 1 for drawing');
     nDims = size(controlPts, 2);
     
     % get the points
