@@ -139,7 +139,7 @@ function [X, sigma, nReplicates, repMethod, thr, maxIters, nRange] = checkInputs
     % proper default for nRange, this is very heuristicky.
     if any(strcmp(p.UsingDefaults, 'nRange'))
         
-        nRange = numel(X) / 10;
+        nRange = max(numel(X) / 10, 1);
     end    
 end
 
