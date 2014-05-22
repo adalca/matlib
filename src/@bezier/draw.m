@@ -11,7 +11,7 @@ function [vol, points, t] = draw(controlPts, varargin)
 %       controlPts can also be a cell of bezier curves (cell of controlPts), in which case a cell of
 %       volumes is returned.
 %
-%		controlPts is [nControlPts x nDims].
+%       controlPts is [nControlPts x nDims].
 %       vol is the volume (of dimension nDims) in which the curve is drawn
 %
 %	vol = DRAW(controlPts, volSize) allows for the specification of the volume size. volSize must be
