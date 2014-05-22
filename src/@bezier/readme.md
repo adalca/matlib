@@ -7,4 +7,4 @@ The main operations are
 - `bezier.draw` draw the curve in a image or volume
 - `bezier.view` visualize 2D or 3D bezier curves (even multiple curves in the same figure)
 
-Run bezier.test for analysis and examples.
+Run `bezier.test` for analysis and examples.
