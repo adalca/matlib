@@ -43,7 +43,8 @@ function dst = bw2sdtrf(bwimg, sc)
     posdst = fcn(bwimg, args{:});
     
     % get surface just outside positive elements and get negative distances (within bwimg)
-    outerSurface = posdst == min(sc);
+    outerSurface = isclose(posdst, min(sc), min(sc)/10000); % WAS: posdst == min(sc);
+    assert(sum(outerSurface(:)) > 0);
     negdst = fcn(outerSurface, args{:});
     
     % compute the final signed distance transform
