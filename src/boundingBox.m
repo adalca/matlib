@@ -29,8 +29,8 @@ function [croppedVol, cropMask, cropArray, bBox] = boundingBox(vol)
     [bBox(nDims + 1), bBox(nDims + 2)] = switchValues(bBox(nDims + 1), bBox(nDims + 2));
 
     % crop the image  
-    rangeStart = floor(bBox(1:nDims));
-    rangeWidth = ceil(bBox(nDims+1:end));
+    rangeStart = max(floor(bBox(1:nDims)), 1);
+    rangeWidth = min(ceil(bBox(nDims+1:end)), size(vol) - rangeStart);
     [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeStart + rangeWidth);
 
     % get crop mask
