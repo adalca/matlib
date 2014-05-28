@@ -8,3 +8,7 @@ The main operations are
 - `bezier.view` visualize 2D or 3D bezier curves (even multiple curves in the same figure)
 
 Run `bezier.test` for analysis and examples.
+
+Contact
+-------
+adalca@csail.mit.edu
