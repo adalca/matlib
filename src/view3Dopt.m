@@ -26,6 +26,7 @@ function view3Dopt(varargin)
 
     % parse inputs to extract volumes and options
     [vols, inputs] = parseinputs(varargin{:});
+    nViews = numel(vols);
     
     % if given voxMask, then the inputs are assumed to be given as just voxels within that mask, so
     % transform into volumes via maskvox2vol.
@@ -41,7 +42,6 @@ function view3Dopt(varargin)
     else
         h = view3D(vols);
     end
-    nViews = numel(h);
 
     % tile if necessary
     if inputs.tilehorz || inputs.tilefull
@@ -50,19 +50,20 @@ function view3Dopt(varargin)
         nRows = ifelse(inputs.tilehorz, {1}, {});
         tile = tileGrid(nViews, inputs.monitorId, nRows{:});
         
-        % get tile grid 
-        [nfo, tile] = tileInfo(nViews, tile);
+        % get view grid 
+        [nfo, tile] = viewGrid(nViews, tile);
         
         % move viewers around.
         for i = 1:nViews
             set(h(i), 'Position', [nfo(i).x, nfo(i).y, tile.winwidth, tile.winheight]);
         end
     end
-    
 end
 
-function [nfo, tile] = tileInfo(nViews, tile)
-    
+function [nfo, tile] = viewGrid(nViews, tile)
+% compute info struct array nfo, with size(nfo) = nViews, and fields x and y indicating the starting
+% position for each window.
+
     if nargin == 1
         tile = tileGrid(nViews, 1);
     end
@@ -81,8 +82,11 @@ function [nfo, tile] = tileInfo(nViews, tile)
 end
 
 function tile = tileGrid(nViews, monitorID, nRows)
-    % TODO: take in several monitors at once. Then, simple compute the winwidth and winheight per
-    % monitor. (to not have windows across monitors. THen you have to smartly iterate
+% output a tile structure for this monitor, with fields 
+%   titlebarheight, xStart, yStart, width, height, nRows, nCols, winwidth, winheight.
+%
+% TODO: take in several monitors at once. Then, simple compute the winwidth and winheight per
+% monitor. (to not have windows across monitors. THen you have to smartly iterate
     
     % estimate a height for the titlebar which should be accounted for in the computations. 
     tile.titlebarheight = 60;
@@ -111,6 +115,7 @@ function tile = tileGrid(nViews, monitorID, nRows)
 end
 
 function [vols, inputs] = parseinputs(varargin)
+% parse inputs, extracting the volumes vol and the inputs struct for the param/value pairs
 
     % determine the number of inputs for view3D
     f = find(cellfun(@ischar, varargin(2:end)), 1, 'first');
