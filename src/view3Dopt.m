@@ -18,6 +18,11 @@ function view3Dopt(varargin)
 %       voxMask:mask, (default:none). if true, then the inputs are assumed to be given as 
 %           just voxels within some mask. so v1full = mark(V1) gives an actual 3D volume.
 %
+%   Example:
+%   view3Dopt({v1, v2, v3, v4}, 'monitorId', 2) to display the 4 volumes, tiled in a 2x2 fashion, on
+%   the second monitor
+%
+%
 % requires: view3D script (external), ifelse, maskvox2vol if using voxMask
 %
 % See Also: view3D
@@ -97,9 +102,9 @@ function tile = tileGrid(nViews, monitorID, nRows)
     mp = get(0, 'MonitorPositions');
     screensize = mp(monitorID, :);
     tile.xStart = screensize(1);
-    tile.yStart = screensize(2) + (mp(1, 4) - screensize(4));
-    tile.width = screensize(3) - tile.xStart + 1;
-    tile.height = screensize(4) - tile.yStart + 1;
+    tile.yStart = screensize(2) + (mp(1, 4) - screensize(4) - 1);
+    tile.width = screensize(3) - screensize(1) + 1;
+    tile.height = screensize(4) - screensize(2) + 1;
 
     % compute the number of columns and rows.
     if nargin == 2
@@ -157,10 +162,14 @@ function [vols, inputs] = parseinputs(varargin)
     end
     
     % extract volumes.
-    if numel(f) == 0 && isnumeric(varargin{1})
-        vols = varargin;
-    else
+    if numel(f) == 0 
+        f = numel(varargin);
+    end
+    
+    if isnumeric(varargin{1})
         vols = varargin(1:f);
+    else
+        vols = varargin{1};
     end
     
     % make sure the volumes are in a cell
