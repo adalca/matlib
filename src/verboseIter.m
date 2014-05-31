@@ -12,8 +12,8 @@ classdef verboseIter < handle
 %   See Also: hasNext, next, close
 %   
 % Project: Analysis of clinical datasets
-% Authors: Adrian Dalca, Ramesh Sridharan
-% Contact: {adalca,rameshvs}@csail.mit.edu
+% Authors: Adrian Dalca
+% Contact: adalca@csail.mit.edu
 
     properties
         % the vector to iterate over
@@ -94,8 +94,7 @@ classdef verboseIter < handle
             % TODO: pause to actually show the waitbar, but can this actually slow down the op?
             pause(0.0001);
         end
-        
-        
+		
         function hn = hasNext(obj)
             hn = obj.curIdx < obj.nVector;
         end

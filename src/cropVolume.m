@@ -1,5 +1,8 @@
 function [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeEnd)
-%
+% crop volume vol according to range indications
+% vol - volume, ndims
+% rangeStart - nDims x 1
+% rangeEnd - nDims x 1
 %
 % TODO: reconcile with actionSubArray and those functions
 
