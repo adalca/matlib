@@ -10,7 +10,8 @@ classdef sys < handle
         varargout = fulldir(path);
         sdirs = subdirs(path);
         restart();
-        isf = isfile(file, verbose)
+        isf = isfile(file, verbose);
+        [funname, fun] = callerFun();
     end
     
 end
