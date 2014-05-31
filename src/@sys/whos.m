@@ -1,4 +1,4 @@
-function whosopt(varargin)
+function whos(varargin)
 % '-opt' for options, the next params are param/value pairs. Also, this implies a new set of
 % defaults, so that ever without any param/value pairs, whos behaves differently as long as -opt is
 % given

@@ -1,6 +1,8 @@
 classdef pcax < handle
     % PCAX A helper class for pca work
     % TODO add a tester function that covers all of the functions
+    %
+    % See Also pca
     
     properties (Constant)
     end

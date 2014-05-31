@@ -5,7 +5,8 @@ classdef sys < handle
     end
     
     methods (Static)
-        am = amParallel()
+        am = amParallel();
+        whos(varargin);
     end
     
 end
