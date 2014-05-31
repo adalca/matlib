@@ -7,6 +7,10 @@ classdef sys < handle
     methods (Static)
         am = amParallel();
         whos(varargin);
+        varargout = fulldir(path);
+        sdirs = subdirs(path);
+        restart();
+        isf = isfile(file, verbose)
     end
     
 end
