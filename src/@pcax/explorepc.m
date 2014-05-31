@@ -1,15 +1,15 @@
-function walkImages = pcaexplorepc(L, scores, pcs, STDs, nStops)
-% PCAEXPLOREPC explore principal components
-%   walkImages = pcaexplorepc(L, scores, pcs). Explore principal components from pca space L by
+function walkImages = explorepc(L, scores, pcs, STDs, nStops)
+% EXPLOREPC explore principal components
+%   walkImages = explorepc(L, scores, pcs). Explore principal components from pca space L by
 %   computing several points in the original space along the direction of the principal components
 %   given in pcs. L is PCA space loading images, M x N ('coeff' returned from MATLAB's pca()). 
 %   scores is the N x nExperiments scores of this experiment in PCA space. pcs are the indexes of
 %   the principal components (e.g. [1,2,3] for the first principal components).
 %
-%   walkImages = pcaexplorepc(L, score, pcs, STDs) - control the number of standard deviations to go
+%   walkImages = explorepc(L, score, pcs, STDs) - control the number of standard deviations to go
 %   along the direction of the pcs. 
 %
-%   walkImages = pcaexplorepc(L, score, pcs, STDs, nStops) - also control the number of data points
+%   walkImages = explorepc(L, score, pcs, STDs, nStops) - also control the number of data points
 %   to interpolate along each directions. 
 %
 %   If more than one pc is requested, computation is fairly heavy and uses tprod(.) function (via

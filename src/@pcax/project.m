@@ -1,15 +1,15 @@
-function scores = pcaproject(X, L, invCovar, lambda)
-% PCAPROJECT project data points onto PCA space
-%   scores = pcaproject(X, L) project data points X onto PCA space defined by loadings L. Assumes 
+function scores = project(X, L, invCovar, lambda)
+% PROJECT project data points onto PCA space
+%   scores = project(X, L) project data points X onto PCA space defined by loadings L. Assumes 
 %       data X is centered! X is data, M x nExperiments where M is dimension (e.g. number of
 %       voxels). L is PCA space loading images, M x N ('coeff' returned from MATLAB's pca()). 
 %       returns score, the N x nExperiments scores. 
 %
-%   scores = pcaproject(X, L, invCovar) allows for regularized projection. invCovar is the inverse 
+%   scores = project(X, L, invCovar) allows for regularized projection. invCovar is the inverse 
 %       covariance matrix from the PCA space (diagnoal), N x N (or Nx1 vector representing diagonal)
 %       The regulaization factor is estimated as 1 ./ mean(invCovar);
 %
-%   scores = pcaproject(X, L, invCovar, lambda) allows for specification of lambda as well.
+%   scores = project(X, L, invCovar, lambda) allows for specification of lambda as well.
 %
 %   Warning: be careful about centered and non-centered data. We tend to work with centered data,
 %   and subtract/add the mean when necessary.
@@ -44,7 +44,7 @@ function scores = pcaproject(X, L, invCovar, lambda)
     
     e = eye(size(L, 2));
     if ~all(denom(:) == e(:))
-        warning('pcaproject: L''L is not identity');
+        warning('project: L''L is not identity');
     end
         
     if nargin == 4

@@ -1,11 +1,11 @@
-function Xhat = pcarecon(L, scores, Xbar)
-% PCARECON reconstruct pca data point 
-%   Xhat = pcarecon(L, scores) reconstructs the data point X_hat with given scores for the PCA space 
+function Xhat = recon(L, scores, Xbar)
+% RECON reconstruct pca data point 
+%   Xhat = recon(L, scores) reconstructs the data point X_hat with given scores for the PCA space 
 %       with loadings L. Assumes data X is centered; i.e. if not naturally centered, add X_bar to 
 %       get actual image after reconstruction, or pass Xbar. 
 %   returns the data points (M x nPoints) in original space.
 %
-%   Xhat = pcarecon(L, scores, Xbar) pass the mean.
+%   Xhat = recon(L, scores, Xbar) pass the mean.
 %
 %   L is PCA space loading images, M x N ('coeff' returned from MATLAB's pca())
 %   scores is the N x nExperiments scores of this experiment in PCA space
