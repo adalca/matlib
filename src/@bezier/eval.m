@@ -73,6 +73,7 @@ function [points, t] = eval(controlPts, varargin)
     switch size(controlPts, 1)
         case 1
             error('Number of Control Points should be at least 2');
+            
         case 2
             % linear formula
             points = (1 - t) * controlPts(1, :) + ...

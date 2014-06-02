@@ -8,6 +8,7 @@ classdef bezier < handle
     %       - eval: get curve point coordinates given specified point resolution 
     %       - draw: draw the curve into a volume 
     %       - view: display the curve in 2D or 3D.
+    %       - explore: explore 2D bezier curves interactively
     %       - test: show a variety of tests and examples on the bezier class.
     % 
     % See Also: eval, draw, view, test
@@ -37,6 +38,9 @@ classdef bezier < handle
         
         % view a bezier curve
         vol = view(controlPts, varargin);
+        
+        % interactive play
+        varargout = explore(varargin);
         
         % test function
         test(testIDs);

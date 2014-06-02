@@ -7,6 +7,7 @@ function test(testIDs)
 %               here 'error' is really just the difference (MAD) to the highest nCirclePoints curve
 %       3. show several curves in the same 3D plot
 %       4. show an example of point interpolation via bezier curve in 2D.
+%       5. Interactive drawing.
 %
 % TODO: more test/examples :)
 %
@@ -124,6 +125,21 @@ function test(testIDs)
         title('2D Interpolation with Bezier curves');
     end
     
+    % interaction functionality.
+    if sum(testIDs == 5) > 0
+
+        % prepare a noisy curve volume to show
+        c = [15, 28; 57, 15; 77, 62; 20, 74];
+        vol = bezier.view(c, 'volSize', [100, 100]); 
+        noisyvol = min(max(vol + randn([100, 100])*0.25, 0), 1);
+        
+        % show
+        close all force;
+        h = figure(); 
+        imagesc(noisyvol); 
+        colormap gray; 
+        bezier.explore('currentFig', h);
+    end
 end
 
 
