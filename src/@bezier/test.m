@@ -42,7 +42,8 @@ function test(testIDs)
             subplot(2, nCurves, i);
             d{i} = bezier.view(controlPts, 'nCurvePoints', nCirclePoints(i), 'currentFig', true);
             colorbar;
-            title(sprintf('Draw Curve with %d curveLen', nCirclePoints(i)));
+            title(sprintf('Draw Curve with %d control Pts, %d curve Pts', size(controlPts, 1), ...
+                nCirclePoints(i)));
 
             if i > 1
                 % plot the difference to the previous curve
