@@ -95,7 +95,9 @@ function varargout = view(controlPts, varargin)
                 pts = points{i};
                 
                 % plot the control points
-                plot(cPts(:, 2), cPts(:, 1), 'xr');
+                plot(cPts(:, 2), cPts(:, 1), 'r--', 'LineWidth', 1);
+                plot(cPts(:, 2), cPts(:, 1), 'xr', 'LineWidth', 3, 'MarkerSize', 12);
+                
 
                 % plot the curve points
                 plot(pts(:, 2), pts(:, 1), 'b');
@@ -121,7 +123,8 @@ function varargout = view(controlPts, varargin)
                 pts = points{i};
                 
                 % plot the control points
-                plot3(cPts(:, 1), cPts(:, 2), cPts(:, 3), 'xr');
+                plot3(cPts(:, 1), cPts(:, 2), cPts(:, 3), 'r--', 'LineWidth', 1);
+                plot3(cPts(:, 1), cPts(:, 2), cPts(:, 3), 'xr', 'LineWidth', 3, 'MarkerSize', 12);
 
                 % plot the curve points
                 plot3(pts(:, 1), pts(:, 2), pts(:, 3), 'b');
