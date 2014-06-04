@@ -1,6 +1,6 @@
 function dst = volCenterDist(volSize)
 % VOLCENTERDIST distance from the center of the volume at every voxel
-%   dst = patcvolhCenterDist(volSize) distance from the center of the volume at every voxel. dst is
+%   dst = volCenterDist(volSize) distance from the center of the volume at every voxel. dst is
 %   a volume of size volSize, (any dimension).
 %
 % Example for 2D:
