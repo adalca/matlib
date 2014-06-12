@@ -1,4 +1,8 @@
 function [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeEnd)
+%   [croppedVol, cropArray] = cropVolume(vol, rangeEnd) assumes rangeStart of [1, 1, 1...]
+%   [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeEnd)
+%
+%
 % crop volume vol according to range indications
 % vol - volume, ndims
 % rangeStart - nDims x 1
@@ -7,6 +11,12 @@ function [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeEnd)
 % TODO: reconcile with actionSubArray and those functions
 
     nDims = ndims(vol);
+    
+    if nargin == 2
+        rangeEnd = rangeStart;
+        rangeStart = ones(1, nDims);
+    end
+    
     assert(nDims == numel(rangeStart), ...
         'volume dimensions does not match start vector dimensions');
     assert(nDims == numel(rangeEnd), ...
