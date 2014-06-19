@@ -120,3 +120,11 @@ function [points, t] = eval(controlPts, varargin)
     
     % verify dimensions
     assert(size(points, 2) == size(controlPts, 2));
+end
+
+function dst = ssd(v1, v2)
+% sum of squared difference
+
+    ds = (v1 - v2) .^ 2;
+    dst = sum(ds);
+end 
