@@ -79,8 +79,8 @@ classdef verboseIter < handle
                 frac = idx/obj.nVector;
                 waitmsg = sprintf('%s: %d/%d (%3.1f%%) completed.', msg, idx, obj.nVector, frac*100);
                 waitbar(frac, obj.waitbarHandle, waitmsg); 
-                % TODO: pause to actually show the waitbar, but can this actually slow down the op?
-                pause(0.0001);
+                
+                drawnow();
             end
             
             % get the new index and update the curIdx field
