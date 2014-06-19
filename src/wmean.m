@@ -1,7 +1,10 @@
 function y = wmean(x, w, dim)
 % weighted mean
 
-    narginchk(2, 3);
+    narginchk(1, 3);
+    if nargin == 1
+        w = ones(size(x));
+    end
 
     if ~exist('dim', 'var') || isempty(dim)
         dim = find(size(x) ~= 1, 1);
