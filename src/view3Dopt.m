@@ -1,14 +1,16 @@
-function view3Dopt(varargin)
+function varargout = view3Dopt(varargin)
 % VIEW3DOPT extends/wraps the view3D script with some useful options
-%	view3Dopt(X) or view3Dopt(X, 'link') or view3Dopt(X, F) will simply call view3D 
-%		with those arguments
+%   view3Dopt(X) or view3Dopt(X, 'link') or view3Dopt(X, F) will simply call view3D with those
+%   arguments
 %
 %   view3Dopt(V1, V2, ...) displays the given volumes with default tiling and link parameters
 %
 %   view3Dopt(C) where C = {V1, V2, ...} displays the given volume with the default tiling and link
-%       parameters
+%   parameters
 %
-%	view3Dopt(..., ParamName, ParamValue) add functioanlity as shown below
+%   view3Dopt(..., ParamName, ParamValue) add functioanlity as shown below
+%
+%   h = view3Dopt(...) returns the handles of the view windows.
 %
 %   ParamName/ParamValue pairs:
 %       tilehorz:boolean (default:false). if true, tile multiple viewers horizontally on screen
@@ -18,12 +20,11 @@ function view3Dopt(varargin)
 %       voxMask:mask, (default:none). if true, then the inputs are assumed to be given as 
 %           just voxels within some mask. so v1full = mark(V1) gives an actual 3D volume.
 %
-%   Example:
-%   view3Dopt({v1, v2, v3, v4}, 'monitorId', 2) to display the 4 volumes, tiled in a 2x2 fashion, on
-%   the second monitor
+% Example:
+%   % display 4 volumes v1, v2, v3, v4, tiled in a 2x2 fashion, on the second monitor 
+%   view3Dopt({v1, v2, v3, v4}, 'monitorId', 2)
 %
-%
-% requires: view3D script (external), ifelse, maskvox2vol if using voxMask
+% Requires: view3D script (external), ifelse, maskvox2vol if using voxMask
 %
 % See Also: view3D
 %
@@ -62,6 +63,10 @@ function view3Dopt(varargin)
         for i = 1:nViews
             set(h(i), 'Position', [nfo(i).x, nfo(i).y, tile.winwidth, tile.winheight]);
         end
+    end
+    
+    if nargout > 0
+        varargout{1} = h;
     end
 end
 
@@ -129,8 +134,8 @@ function [vols, inputs] = parseinputs(varargin)
         extraOpts = varargin(f+1:end);
 
         % if the second input is 'link', it could be due to original link or
-        %	due to new link option. figure out which one it is based on the next
-        %	input.
+        %    due to new link option. figure out which one it is based on the next
+        %    input.
         if f == 1 && strcmp(varargin{2}, 'link')
             if nargin > 2 && ischar(varargin{3})
                 extraOpts = varargin(f+2:end);
