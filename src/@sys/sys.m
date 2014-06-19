@@ -12,6 +12,7 @@ classdef sys < handle
         restart();
         isf = isfile(file, verbose);
         [funname, fun] = callerFun();
+        varargout = structmemory(str)
     end
     
 end
