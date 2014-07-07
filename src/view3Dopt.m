@@ -26,6 +26,8 @@ function varargout = view3Dopt(varargin)
 %
 % Requires: view3D script (external), ifelse, maskvox2vol if using voxMask
 %
+% TODO: add support for vols as a struct, where vols has two fields:V and F, to allow for fields
+%
 % See Also: view3D
 %
 % Contact: adalca@csail.mit.edu
