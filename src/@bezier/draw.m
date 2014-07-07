@@ -1,7 +1,7 @@
 function [vol, points, t] = draw(controlPts, varargin)
 % DRAW draw a bezier curve onto a volume
 %	vol = DRAW(controlPts) draw a bezier curve at on a volume. This first inerpolated the curve
-%		at several points. The number of such points (nCirclePoints) interpolated is estimated by
+%		at several points. The number of such points (nCurvePoints) interpolated is estimated by
 %		computing the absolute distance of going through all the points in order, and multiplying
 %		that distance by bezier.pointsPerVoxelDist. The volume size is the smallest necessary to
 %		encompas the curve.
@@ -17,8 +17,8 @@ function [vol, points, t] = draw(controlPts, varargin)
 %	vol = DRAW(controlPts, volSize) allows for the specification of the volume size. volSize must be
 %       [1 x nDims]. If empty array ([]), the smallest volume size will be estimated.
 %
-%	vol = DRAW(controlPts, volSize, nCirclePoints) allows the specification of the number of
-%		points to use for interpolation. nCirclePoints can be specified without volSize by setting
+%	vol = DRAW(controlPts, volSize, nCurvePoints) allows the specification of the number of
+%		points to use for interpolation. nCurvePoints can be specified without volSize by setting
 %		volSize to [].
 %
 %   [vol, points] = DRAW(...) also returns the interpolation points used to draw the curve.
@@ -26,8 +26,8 @@ function [vol, points, t] = draw(controlPts, varargin)
 %   [vol, points, t] = DRAW(...) also returns the interpolation points' parametrization along the
 %       curve.
 %
-%   Note: the final values of the bezier image are approximated assuming enough nCirclePoints. If
-%   something far more precise is needed with a small nCirclePoints, should consider interpolating
+%   Note: the final values of the bezier image are approximated assuming enough nCurvePoints. If
+%   something far more precise is needed with a small nCurvePoints, should consider interpolating
 %   the given points more carefully.
 %
 %   Note: current drawing is limited to controlPts specifying points in an actual volume - that is,

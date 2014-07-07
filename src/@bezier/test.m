@@ -2,9 +2,9 @@ function test(testIDs)
 % TEST testing and examples for bezier curves class
 %   TEST(testIDs) runs several test or examples for the bezier curves class.
 %       current tests:
-%       1. display 2D drawing examples with varying nCirclePoints
-%       2. see 'error' decreasing for 2D and 3D curves for varying nCirclePoints. 
-%               here 'error' is really just the difference (MAD) to the highest nCirclePoints curve
+%       1. display 2D drawing examples with varying nCurvePoints
+%       2. see 'error' decreasing for 2D and 3D curves for varying nCurvePoints. 
+%               here 'error' is really just the difference (MAD) to the highest nCurvePoints curve
 %       3. show several curves in the same 3D plot
 %       4. show an example of point interpolation via bezier curve in 2D.
 %       5. Interactive drawing.
@@ -13,11 +13,8 @@ function test(testIDs)
 %
 % Author: Adrian V. Dalca, adalca@csail.mit.edu
 
-    % if figuresc() is available, use that instead of figure() to show figures.
-    figfun = @figure;
-    if exist('figuresc', 'file') == 2
-        figfun = @figuresc;
-    end
+    % fulls creen figure
+    figfun = @() figure('units', 'normalized', 'outerposition', [0 0 1 1]);
 
     % run all tests, if no test specified
     if nargin == 0
@@ -32,25 +29,25 @@ function test(testIDs)
         controlPts = [1, 5; 14, 1; 15, 19];
         
         % compute a log scale vector of sample points.
-        nCirclePoints = round(logspace(log10(numel(controlPts)), log10(1000), nCurves));
+        nCurvePoints = round(logspace(log10(numel(controlPts)), log10(1000), nCurves));
 
-        % go through each case of nCirclePoints, and plot the figures. 
+        % go through each case of nCurvePoints, and plot the figures. 
         figfun ();
         d = cell(nCurves, 1);
-        for i = 1:numel(nCirclePoints)
+        for i = 1:numel(nCurvePoints)
 
             % plot the drawn curve
             subplot(2, nCurves, i);
-            d{i} = bezier.view(controlPts, 'nCurvePoints', nCirclePoints(i), 'currentFig', true);
+            d{i} = bezier.view(controlPts, 'nCurvePoints', nCurvePoints(i), 'currentFig', true);
             colorbar;
             title(sprintf('Draw Curve with %d control Pts, %d curve Pts', size(controlPts, 1), ...
-                nCirclePoints(i)));
+                nCurvePoints(i)));
 
             if i > 1
                 % plot the difference to the previous curve
                 subplot(2, nCurves, nCurves + i);
                 imagesc(abs(d{i} - d{i-1}), [0, 1]);
-                bezier.view(controlPts, 'nCurvePoints', nCirclePoints(i), 'currentFig', true, ...
+                bezier.view(controlPts, 'nCurvePoints', nCurvePoints(i), 'currentFig', true, ...
                     'draw', false);
                 colorbar;
                 title('Difference from previous curve');
@@ -65,15 +62,15 @@ function test(testIDs)
         
         % test parameters
         nTries = 100;
-        nCirclePointsMax = 3500;
+        nCurvePointsMax = 3500;
         controlPts2D = [1, 5; 14, 1; 15, 19];
         controlPts3D = [1, 5, 1; 14, 1, 10; 15, 19, 17];
 
         % do the sweep in 2D
-        [curveParamLen2D, diff2D] = sweepCurveParamLen(controlPts2D, nTries, nCirclePointsMax);
+        [curveParamLen2D, diff2D] = sweepCurveParamLen(controlPts2D, nTries, nCurvePointsMax);
         
         % do the sweep in 3D
-        [curveParamLen3D, diff3D] = sweepCurveParamLen(controlPts3D, nTries, nCirclePointsMax);
+        [curveParamLen3D, diff3D] = sweepCurveParamLen(controlPts3D, nTries, nCurvePointsMax);
 
         % display sweep
         figfun ();
@@ -143,20 +140,20 @@ function test(testIDs)
 end
 
 
-function [nCirclePoints, diff] = sweepCurveParamLen(controlPts, nTries, nCirclePointsMax)
+function [nCurvePoints, diff] = sweepCurveParamLen(controlPts, nTries, nCurvePointsMax)
     
     % compute a log scale vector of sample points.
-    nCirclePoints = round(logspace(log10(numel(controlPts)), log10(nCirclePointsMax), nTries));
+    nCurvePoints = round(logspace(log10(numel(controlPts)), log10(nCurvePointsMax), nTries));
     
-    % compute the best volume estimate given the most circle points.
-    bestVol = bezier.draw(controlPts, [], nCirclePoints(end));
+    % compute the best volume estimate given the most curve points.
+    bestVol = bezier.draw(controlPts, [], nCurvePoints(end));
     
     % compute all volumes and take the differences.
     d = cell(nTries, 1);
     diff = zeros(nTries, 1);
     diff(1) = inf;
-    for i = 1:numel(nCirclePoints)
-        d{i} = bezier.draw(controlPts, [], nCirclePoints(i));
+    for i = 1:numel(nCurvePoints)
+        d{i} = bezier.draw(controlPts, [], nCurvePoints(i));
         locdiff = abs(bestVol - d{i});
         diff(i) = mean(locdiff(:));
     end
