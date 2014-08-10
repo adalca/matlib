@@ -11,6 +11,7 @@ classdef sys < handle
         sdirs = subdirs(path);
         restart();
         isf = isfile(file, verbose);
+        isd = isdir(directory, verbose);
         [funname, fun] = callerFun();
         varargout = structmemory(str)
     end
