@@ -1,24 +1,24 @@
 function [points, t] = eval(controlPts, varargin)
 % EVAL Evaluate a bezier curve given its control points
-%    points = EVAL(controlPts) evaluated (computes coordinates) of the bezier curve at
-%        many interpolation points.
-%            controlPts is [nControlPts x nDims].
-%                The number of points (nCurvePoints) interpolated is estimated by computing the
-%                absolute distance of going through all the points in order, and multiplying that
-%                distance by bezier.pointsPerVoxelDist.
-%            points output is nCurvePoints x nDims
+%   points = EVAL(controlPts) evaluated (computes coordinates) of the bezier curve at many
+%   interpolation points.
 %
-%    points = EVAL(controlPts, nCurvePoints) allows the specification of the number of
-%        points to use for interpolation.
+%   controlPts is [nControlPts x nDims]. The number of points (nCurvePoints) interpolated is
+%   estimated by computing the absolute distance of going through all the points in order, and
+%   multiplying that distance by bezier.pointsPerVoxelDist. 
 %
-%    points = EVAL(controlPtsCell, ...) allows for a cell of control points (i.e. cell of several
-%       bezier curves), which will then return a cell of points.
+%   points output is nCurvePoints x nDims
 %
-%    [points, t] = EVAL(...) also returns the parametrization of the interpolation points along
-%        the curve. t is [nCurvePoints x 1]. If given a cell of control points, t will also be a
-%        cell.
+%   points = EVAL(controlPts, nCurvePoints) allows the specification of the number of points to use
+%   for interpolation.
 %
-%    Implementation:
+%   points = EVAL(controlPtsCell, ...) allows for a cell of control points (i.e. cell of several
+%   bezier curves), which will then return a cell of points.
+%
+%   [points, t] = EVAL(...) also returns the parametrization of the interpolation points along the
+%   curve. t is [nCurvePoints x 1]. If given a cell of control points, t will also be a cell.
+%
+%   Implementation:
 %        currently linear (two CPs), quadratic (three CPs) or cubic (four CPs) bezier curves are
 %            directly computed (formulas are evident in the code, in the main switch statement)
 % 
@@ -60,13 +60,13 @@ function [points, t] = eval(controlPts, varargin)
         totalDist = max(totalDist, 1);
         
         % get about 100 points per voxel.
-        nCirclePoints = ceil(totalDist .* bezier.pointsPerVoxelDist);
+        nCurvePoints = ceil(totalDist .* bezier.pointsPerVoxelDist);
     else
-        nCirclePoints = varargin{1};
+        nCurvePoints = varargin{1};
     end
     
     % curve parametrization variable
-    t = linspace(0, 1, nCirclePoints)';
+    t = linspace(0, 1, nCurvePoints)';
     
     % detect the type of curve (linear, quadratic, cubic) based on the
     % number of points given in controlPts.
@@ -99,7 +99,7 @@ function [points, t] = eval(controlPts, varargin)
             % compute 4th diagonal
             ptscomp = cell(count, count);
             for i = 1:(count - 4 + 1)
-                ptscomp{i, i+3} = bezier.eval(controlPts(i:i+4-1, :), nCirclePoints);
+                ptscomp{i, i+3} = bezier.eval(controlPts(i:i+4-1, :), nCurvePoints);
             end
             
             % compute every diagonal after that 
