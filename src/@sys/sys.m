@@ -14,6 +14,7 @@ classdef sys < handle
         isd = isdir(directory, verbose);
         [funname, fun] = callerFun();
         varargout = structmemory(str)
+        outfile = replaceExtension(infile, newext)
     end
     
 end
