@@ -7,7 +7,7 @@ function varargout = rangeCrop(volSize, varargin)
     varargout = cell(numel(varargin));
     for i = 1:numel(varargin)
         x = varargin{i};
-        x(x > volSize(1)) = [];
+        x(x > volSize(i)) = [];
         x(x < 1) = [];
         varargout{i} = x;
     end
