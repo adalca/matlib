@@ -173,7 +173,7 @@ function [vols, inputs] = parseinputs(varargin)
         f = numel(varargin);
     end
     
-    if isnumeric(varargin{1})
+    if isnumeric(varargin{1}) || islogical(varargin{1})
         vols = varargin(1:f);
     else
         vols = varargin{1};
