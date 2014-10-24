@@ -1,6 +1,6 @@
 function [bestMean, bestScore, weights, stats] = meanShift(X, varargin)
 % MEANSHIFT compute the mean shift estimate 
-%   [bestMean, bestScore, weights, stats] = meanShift(X) compute the mean shift estiamte of
+%   [bestMean, bestScore, weights, stats] = meanShift(X) compute the mean shift estimate of
 %   the given vector using a fixed sigma. stats is a structure with
 %     stats.scores - the scores of all the replicate
 %     stats.means - the mean estiamtes of all the replicates
