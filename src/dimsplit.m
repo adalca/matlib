@@ -10,7 +10,7 @@ function varargout = dimsplit(dim, vol)
 %   [a, b, c] = dimsplit(3, r)
 %   results in a, b, and c each being 4x4 random matrices, the three channels of r.
 %
-% Contact: adalca@
+% Contact: adalca@mit
 
     r = cell(1, ndims(vol));
     for i = 1:ndims(vol)
