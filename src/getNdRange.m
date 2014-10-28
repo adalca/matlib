@@ -16,7 +16,10 @@ function varargout = getNdRange(rangeEnds, volSize)
     end
     varargout{1} = range;
     
-    if nargin == 2
+    if nargout == 2
+        if nargin == 1
+            volSize = rangeEnds;
+        end
     
         % TODO - this might not be the most efficient...
         map = false(volSize);
