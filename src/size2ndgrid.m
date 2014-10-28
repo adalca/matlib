@@ -1,5 +1,5 @@
 function x = size2ndgrid(volSize)
-%
+% note: actually returns a cell array, not just first element, like ndgrid() would.
 %
 % See Also: getNdRange
 
