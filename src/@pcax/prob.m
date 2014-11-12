@@ -1,9 +1,9 @@
 function [p, varargout] = prob(X, mu, sigma, L, lambda)
 % PROB probability of a data point under a PCA model
-%   p = prob(X, mu, sigma, L) computes the probability of data point (in original space)
-%   X under the PCA model with loadings L. We assume the loadings were computed with 0-mean images,
-%   and therefore if mu ~= 0, we first subtract the mean from all data points X. X is N x nData, my
-%   is Nx1, sigma is N x 1 standard deviation. X is then projected onto the PCA space and the 
+%   p = prob(X, mu, sigma, L) computes the probability of data point (in original space) X under the
+%   PCA model with loadings L. We assume the loadings were computed with 0-mean images, and
+%   therefore if mu ~= 0, we first subtract the mean from all data points X. X is N x nData, my is
+%   Nx1, sigma is N x 1 standard deviation. X is then projected onto the PCA space and the
 %   probability is computed.
 %
 %   p = prob(X, mu, sigma, L, []) computes the probability model under the pca model of a
