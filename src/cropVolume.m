@@ -8,7 +8,7 @@ function [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeEnd)
 % rangeStart - nDims x 1
 % rangeEnd - nDims x 1
 %
-% TODO: reconcile with actionSubArray and those functions
+% TODO: reconcile with actionSubArray and those functions, cropMask
 
     nDims = ndims(vol);
     
