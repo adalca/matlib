@@ -38,10 +38,15 @@ classdef verboseIter < handle
         % optional: verbose (logical)
         % optional: funcMsg (string) - will be shown in text of waitbar
             
+            narginchk(1, 3);
+            assert(isvector(vector), 'vector can only be vector form');
+        
             % verbose defaults to true
             if nargin == 1
                 verbose = true;
             end
+            
+            
             
             % extract the last function if no funMsg is provided
             if nargin < 3
@@ -87,6 +92,7 @@ classdef verboseIter < handle
             obj.curIdx = obj.curIdx + 1;
             idx = obj.curIdx;
             v = obj.vector(obj.curIdx);
+                
         end
         
         function close(obj)
