@@ -22,17 +22,18 @@ function walkImages = explorepc(L, scores, pcs, STDs, nStops)
 % Contact: {adalca,rameshvs}@mit.edu
 
     narginchk(3, 5);
+    nargin
     if nargin == 3
         STDs = 3;
     end
     
-    if nargin == 4
-        nStops = 20;
+    if nargin <= 4
+        nStops = 21;
     end
 
     % get centroid of projection and variance along projection
     centroid = mean(scores, 2);
-    stdtroid = std(scores, 2);
+    stdtroid = std(scores, [], 2);
 
     % linspace for each dimension score between -STDs and STDs stdev's
     l = cell(numel(pcs), 1);
