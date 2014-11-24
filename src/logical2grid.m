@@ -20,6 +20,7 @@ function [grididx, gridsize, gridsub] = logical2grid(logicalvol)
     gridsize = zeros(1, nDims);
     for d = 1:nDims
         fullrange = getNdRange(size(logicalvol));
+        erased = zeros(size(logicalvol, d), 1);
         for i = 1:size(logicalvol, d)
             r = fullrange;
             r{d} = i;
