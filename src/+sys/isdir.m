@@ -1,9 +1,8 @@
 function isd = isdir(directory, verbose)
 % ISDIR returns whether given filename is a directory (folder)
-%	isd = isdir(directory) returns whether the directory exists acording to exist() function. 
+%   isd = isdir(directory) returns whether the directory exists acording to exist() function. 
 %
-%   isd = isdir(directory, verbose) prints out a clean warning if the dir is not found when 
-%	verbose == true
+%   isd = isdir(directory, true) prints out a clean warning if the dir is not found 
 %
 % See Also: exist
 %
