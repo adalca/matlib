@@ -1,7 +1,7 @@
 volStruct
 =========
 
-volStruct is simple a struct carrying volume information in specific fields. This format is useful in certain tools and implementations.
+volStruct is simple a struct carrying volume information. This format is useful in certain tools and implementations (e.g. where working in large ND arrays is cumbersome).
 
 Specification
 -------------

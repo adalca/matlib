@@ -1,6 +1,6 @@
 function [bestMean, bestScore, weights, stats] = meanShift(X, varargin)
 % MEANSHIFT compute the mean shift estimate 
-%   [bestMean, bestScore, weights, stats] = meanShift(X) compute the mean shift estiamte of
+%   [bestMean, bestScore, weights, stats] = meanShift(X) compute the mean shift estimate of
 %   the given vector using a fixed sigma. stats is a structure with
 %     stats.scores - the scores of all the replicate
 %     stats.means - the mean estiamtes of all the replicates
@@ -139,7 +139,7 @@ function [X, sigma, nReplicates, repMethod, thr, maxIters, nRange] = checkInputs
     % proper default for nRange, this is very heuristicky.
     if any(strcmp(p.UsingDefaults, 'nRange'))
         
-        nRange = numel(X) / 10;
+        nRange = max(numel(X) / 10, 1);
     end    
 end
 

@@ -1,0 +1,44 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: meanShift.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: meanShift.m</td>
+            <td class="subheader-left"><a href="matlab:edit meanShift.m">View code for meanShift.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">meanShift.m</div>
+      <div class="helptext"><pre><!--helptext -->  MEANSHIFT compute the mean shift estimate 
+    [bestMean, bestScore, weights, stats] = meanShift(X) compute the mean shift estiamte of
+    the given vector using a fixed sigma. stats is a structure with
+      stats.scores - the scores of all the replicate
+      stats.means - the mean estiamtes of all the replicates
+      stats.stopIters - the iteration number each replicate stopped on 
+      stats.thr - used threshold
+      stats.sigma - used sigma
+      stats.nRange - used nRange
+      stats.xRange - used xRange (max(x) - min(x))/nRange, for now
+ 
+    [bestMean, bestScore, weights, stats] = meanShift(X, Param1, Value1, ...) allows from
+    several param/value pairs:
+        'sigma' - the kernel sigma (or h) to be used. 
+            default: bandwidth suggested by Bowman and Azzalini (1997) p.31
+        'nReplicates' - the number of replicates of the method. deault: 10
+        'repMethod' - the replicate initialization method - 
+            'percentiles' (span nReplicates percentiles from 0 to 100) or 'random'. 
+        'thr' - the stopping threshold for mean-shift
+        'maxIters' - the max number of iterations for a meanshift algo
+        'nRange' - the number of points on the support grid of X. This is used for inner product
+            computation of scores.
+ 
+  Authors: Adrian Dalca, Katie Bouman, Ramesh Sridharan 
+    (adalca,klbouman,rameshvs@csail.mit.edu)</pre></div><!--after help -->
+   </body>
+</html>

@@ -6,4 +6,4 @@ function am = amParallel()
 %
 % Contact: adalca.mit.edu
 
-    am = matlabpool('size') == 0;
+    am = matlabpool('size') ~= 0;

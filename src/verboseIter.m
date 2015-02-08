@@ -5,15 +5,15 @@ classdef verboseIter < handle
 %	Example:
 %	v = verboseIter([1, 2, 7, 8])
 %	while v.hasNext()
-%		[s, i] = v.next();
+%		[s, i] = vi.next();
 %	end
 %	v.close();
 %
 %   See Also: hasNext, next, close
 %   
 % Project: Analysis of clinical datasets
-% Authors: Adrian Dalca, Ramesh Sridharan
-% Contact: {adalca,rameshvs}@csail.mit.edu
+% Authors: Adrian Dalca
+% Contact: adalca@csail.mit.edu
 
     properties
         % the vector to iterate over
@@ -38,10 +38,15 @@ classdef verboseIter < handle
         % optional: verbose (logical)
         % optional: funcMsg (string) - will be shown in text of waitbar
             
+            narginchk(1, 3);
+            assert(isvector(vector), 'vector can only be vector form');
+        
             % verbose defaults to true
             if nargin == 1
                 verbose = true;
             end
+            
+            
             
             % extract the last function if no funMsg is provided
             if nargin < 3
@@ -79,14 +84,15 @@ classdef verboseIter < handle
                 frac = idx/obj.nVector;
                 waitmsg = sprintf('%s: %d/%d (%3.1f%%) completed.', msg, idx, obj.nVector, frac*100);
                 waitbar(frac, obj.waitbarHandle, waitmsg); 
-                % TODO: pause to actually show the waitbar, but can this actually slow down the op?
-                pause(0.0001);
+                
+                drawnow();
             end
             
             % get the new index and update the curIdx field
             obj.curIdx = obj.curIdx + 1;
             idx = obj.curIdx;
             v = obj.vector(obj.curIdx);
+                
         end
         
         function close(obj)
@@ -94,8 +100,7 @@ classdef verboseIter < handle
             % TODO: pause to actually show the waitbar, but can this actually slow down the op?
             pause(0.0001);
         end
-        
-        
+		
         function hn = hasNext(obj)
             hn = obj.curIdx < obj.nVector;
         end

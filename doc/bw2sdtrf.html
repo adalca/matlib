@@ -1,0 +1,32 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: bw2sdtrf.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: bw2sdtrf.m</td>
+            <td class="subheader-left"><a href="matlab:edit bw2sdtrf.m">View code for bw2sdtrf.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">bw2sdtrf.m</div>
+      <div class="helptext"><pre><!--helptext -->  BW2SDTRF compute a signed distance transform 
+    dst = bw2sdtrf(bwimg) computes the signed distance transform from the surface between the
+    binary elements of logical bwimg, which can be of any dimentions that bwdist accepts. Note
+    that the function assumes isotropic matrix elements (e.g. be wary of non-isotropic voxels
+    in medical imaging).
+ 
+    Note: the distance transform on either side of the surface will be +1/-1 - i.e. there are
+    no voxels for which the dst should be 0.
+    
+    Runtime: currently the function uses bwdist twice. If there is a quick way to compute the
+    surface, bwdist could be used only once.
+ 
+  Contact: Adrian Dalca, adalca@mit.edu, <a href="http://adalca.mit.edu">http://adalca.mit.edu</a></pre></div><!--after help -->
+   </body>
+</html>

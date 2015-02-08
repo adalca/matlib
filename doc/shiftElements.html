@@ -1,0 +1,32 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <link rel="stylesheet" href="file:///C:/Program Files/MATLAB/R2013b/toolbox/matlab/helptools/private/helpwin.css">
+      <title>MATLAB File Help: shiftElements.m</title>
+   </head>
+   <body>
+      <!--Single-page help-->
+      <table border="0" cellspacing="0" width="100%">
+         <tr class="subheader">
+            <td class="headertitle">MATLAB File Help: shiftElements.m</td>
+            <td class="subheader-left"><a href="matlab:edit shiftElements.m">View code for shiftElements.m</a></td>
+            <td class="subheader-right"><a href="matlab:doc">Default Topics</a></td>
+         </tr>
+      </table>
+      <div class="title">shiftElements.m</div>
+      <div class="helptext"><pre><!--helptext -->  SHIFTELEMENTS shift elements in given vector
+  vec = shiftElements(vec, oldIdx, newIdx) shift elements in vector vec according 
+    to a index permutation given by oldIdx (the index of the element to be moved)
+    and newIdx (the index where the element should be inserted). The other elements
+    will shift around to allow for this change
+ 
+  Example: put the fifth element in the second position, move everything between 
+    second:fourth position to third:fifth.
+    v = [1 2 3 4 5 6 7], oldIdx = 5, newIdx = 2
+    v = shiftElements(v, oldIdx, newIdx)
+    output: v = [1 5 2 3 4 6 7]
+ 
+  Contact: adalca.mit.edu</pre></div><!--after help -->
+   </body>
+</html>

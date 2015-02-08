@@ -6,4 +6,3 @@ function vols = volStruct2featVols(volStruct)
     targetVol = volStruct2vol(volStruct);
     vols = num2cell(targetVol, 1:nDims);
     
-    
