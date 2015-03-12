@@ -1,4 +1,5 @@
 function isc = isclean(X)
+% test if X is finite, real, and not NAN
 
     x = X(:);
     
