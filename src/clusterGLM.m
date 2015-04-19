@@ -86,8 +86,19 @@ function varargout = clusterGLM(X, Y, K, varargin)
 		
         % fit regressions
         for k = 1:K
-            [pfit(:, k), ~, stats(k)] = glmfit(X(clustIdx == k), Y(clustIdx == k), ...
-                inputs.distr{k}, 'link', inputs.link{k}, 'constant', inputs.constant);
+            kc = clustIdx == k;
+            
+            if sum(kc) > 0
+                [pfit(:, k), ~, stats(k)] = glmfit(X(kc), Y(kc), ...
+                    inputs.distr{k}, 'link', inputs.link{k}, 'constant', inputs.constant);
+            else
+                warning('lost a cluster. fitting to entire data');
+                pfit(:, k) = glmfit(X(:), Y(:), ...
+                    inputs.distr{k}, 'link', inputs.link{k}, 'constant', inputs.constant);
+                
+                % add some small noise to avoid multiple clusters fitting to same data;
+                pfit(:, k) = pfit(:, k) + (rand-0.5) * 0.001 * pfit(:, k); 
+            end
         end
         
         % check for convergence
