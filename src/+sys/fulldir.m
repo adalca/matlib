@@ -9,6 +9,9 @@ function varargout = fulldir(path)
 %
 %   d = fulldir(path) allows for specification of the path to return
 %
+% TODO: if path is a folder without the final filesep, this method fails due to the fileparts call. 
+% Perhaps check isdir first?
+%
 % See Also: dir
 %
 % Contact: http://adalca.mit.edu
