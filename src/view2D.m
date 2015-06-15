@@ -7,6 +7,7 @@ function view2D(images, varargin)
         subplot(nRows, nCols, i);
         imagesc(images{i});
         caxis(inputs.caxis);
+        title(inputs.titles{i})
         axis off;
         axis equal;
     end
@@ -16,15 +17,16 @@ end
 
 function [images, nRows, nCols, inputs] = parseinputs(images, varargin)
 
-    p = inputParser();
-    p.addRequired('images', @(x) iscell(x) || isnumeric(x));
-    p.addParameter('subgrid', -1, @isnumeric)
-    p.addParameter('caxis', [0, 1]);
-    p.parse(images, varargin{:});
-    
     if isnumeric(images)
         images = {images};
     end
+
+    p = inputParser();
+    p.addRequired('images', @(x) iscell(x));
+    p.addParameter('subgrid', -1, @isnumeric)
+    p.addParameter('caxis', [0, 1]);
+    p.addParameter('titles', repmat({''}, [1, numel(images)]), @iscell);
+    p.parse(images, varargin{:});
     
     if isscalar(p.Results.subgrid) && p.Results.subgrid == -1
         [nRows, nCols] = subgrid(numel(images));
