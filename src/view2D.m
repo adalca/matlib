@@ -18,7 +18,11 @@ function view2D(images, varargin)
     [images, nRows, nCols, inputs] = parseinputs(images, varargin{:});
 
     % open figure
-    figuresc()
+    if isscalar(inputs.figureHandle) == -1
+        figuresc()
+    else
+        figure(inputs.figureHandle);
+    end
     for i = 1:numel(images)
         
         % determine appropriate subplot
@@ -39,6 +43,8 @@ function view2D(images, varargin)
         % display title.
         title(inputs.titles{i})
     end
+    
+    drawnow();
 
 end
 
@@ -54,6 +60,7 @@ function [images, nRows, nCols, inputs] = parseinputs(images, varargin)
     p.addParameter('subgrid', -1, @isnumeric)
     p.addParameter('caxis', -1);
     p.addParameter('titles', repmat({''}, [1, numel(images)]), @iscell);
+    p.addParameter('figureHandle', -1);
     p.parse(images, varargin{:});
     
     if isscalar(p.Results.subgrid) && p.Results.subgrid == -1
