@@ -18,7 +18,7 @@ function view2D(images, varargin)
     [images, nRows, nCols, inputs] = parseinputs(images, varargin{:});
 
     % open figure
-    if isscalar(inputs.figureHandle) == -1
+    if isscalar(inputs.figureHandle) && inputs.figureHandle == -1
         figuresc()
     else
         figure(inputs.figureHandle);
