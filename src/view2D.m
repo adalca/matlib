@@ -14,18 +14,30 @@ function view2D(images, varargin)
 %
 % Contact: adalca.mit.edu
 
+    % parse inputs
     [images, nRows, nCols, inputs] = parseinputs(images, varargin{:});
 
+    % open figure
     figuresc()
     for i = 1:numel(images)
+        
+        % determine appropriate subplot
         subplot(nRows, nCols, i);
+        
+        % show image
         imagesc(images{i});
+        
+        % some cleaning for images.
+        axis off;
+        axis equal;
+        
+        % fix color range
         if numel(inputs.caxis) == 2
             caxis(inputs.caxis);
         end
+        
+        % display title.
         title(inputs.titles{i})
-        axis off;
-        axis equal;
     end
 
 end
@@ -55,6 +67,7 @@ function [images, nRows, nCols, inputs] = parseinputs(images, varargin)
 end
 
 function [hei, len] = subgrid(N)
+% computation of subgrid, based on the screen size
 
     screensize = get(0, 'Screensize');
     W = screensize(3);
