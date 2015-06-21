@@ -6,7 +6,9 @@ function view2D(images, varargin)
     for i = 1:numel(images)
         subplot(nRows, nCols, i);
         imagesc(images{i});
-        caxis(inputs.caxis);
+        if numel(inputs.caxis) == 2
+            caxis(inputs.caxis);
+        end
         title(inputs.titles{i})
         axis off;
         axis equal;
@@ -24,7 +26,7 @@ function [images, nRows, nCols, inputs] = parseinputs(images, varargin)
     p = inputParser();
     p.addRequired('images', @(x) iscell(x));
     p.addParameter('subgrid', -1, @isnumeric)
-    p.addParameter('caxis', [0, 1]);
+    p.addParameter('caxis', -1);
     p.addParameter('titles', repmat({''}, [1, numel(images)]), @iscell);
     p.parse(images, varargin{:});
     
@@ -44,6 +46,6 @@ function [hei, len] = subgrid(N)
     W = screensize(3);
     H = screensize(4);
 
-    hei = ceil(sqrt(N*H/W));
+    hei = max(round(sqrt(N*H/W)), 1);
     len = ceil(N/hei);
 end
