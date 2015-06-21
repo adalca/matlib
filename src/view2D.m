@@ -1,4 +1,18 @@
 function view2D(images, varargin)
+% Visualize multiple 2D images in subplots
+%   view2D(images) visualize multiple images into subplots. If images is an image, this is roughly
+%   equivalent to imagesc(images). However, th emore interesting case is when images is a cell of
+%   images. By default, view2D computes and uses an appropriate subplot grid (according to your
+%   sceen dimensions, as determined by get(0, 'Screensize') ). 
+%
+%   view2D(images, param, value, ...) allows for the following param/value pairs:
+%       'subgrid': vector with two elements specifying the subgrid dimensions (e.g. [2, 3]). By
+%       default, this is determined based on your current screensize.
+%       'caxis': the color axis.
+%       'titles': a cell array with as many elements as images, determining the titles of each
+%       image.
+%
+% Contact: adalca.mit.edu
 
     [images, nRows, nCols, inputs] = parseinputs(images, varargin{:});
 
