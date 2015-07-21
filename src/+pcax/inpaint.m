@@ -23,9 +23,9 @@ function Xhat = inpaint(X, varargin)
     valid = ~invalid;   
 
     % prepare useful variables
-    b = X(valid, :);
-    B = covar(valid, valid); 
-    C = covar(valid, invalid); 
+    b = X(valid, :);    % extract the known features
+    B = covar(valid, valid);   % covariance of known features
+    C = covar(valid, invalid); % cross-covariance of known to unknown features.
     
     % compute C' * inv(B) * b
     Xhat = X;
