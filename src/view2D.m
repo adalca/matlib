@@ -12,6 +12,8 @@ function view2D(images, varargin)
 %       'titles': a cell array with as many elements as images, determining the titles of each
 %       image.
 %
+% See/Merge with subplotImages in mivt
+%
 % Contact: adalca.mit.edu
 
     % parse inputs
