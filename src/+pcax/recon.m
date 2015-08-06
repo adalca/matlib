@@ -17,5 +17,5 @@ function Xhat = recon(L, scores, Xbar)
     Xhat = L * scores;
     
     if nargin == 3
-        Xhat = Xhat + repmat(Xbar, [1, size(Xhat, 2)]);
+        Xhat = bsxfun(@plus, Xhat, Xbar(:));
     end
