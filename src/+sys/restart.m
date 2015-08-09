@@ -13,7 +13,8 @@ function restart(varargin)
     p.addParameter('keepvars', false, @islogical);
     p.parse(varargin{:});
 
-
+    % if keeping variables, need to get a temp file, dump all the (caller's) variables, and 
+    % re-load them upon restart
     if p.Results.keepvars
         filename = [tempname, '.mat'];
         
@@ -24,9 +25,11 @@ function restart(varargin)
         % need to print the command:
         % !(matlab -r "load(filename)") &
         % but with the right filename
-        str = sprintf('!(matlab -r "load(''%s'')") &', filename);
+        str = sprintf('!(matlab -r "load(''%s''); delete(''%s'');") &', filename, filename);
         eval(str);
         exit
+        
+    % if no variable save necessary, just restart (start a new matlab and quit)
     else
         !matlab &
         exit
