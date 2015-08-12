@@ -19,9 +19,7 @@ function scores = project(X, L, invCovar, lambda)
     % check inputs
     narginchk(2, 4);
     assert(size(L, 1) == size(X, 1)); 
-    assert(~any(isinf(X(:))))
-    assert(~any(isnan(X(:))))
-    assert(all(isreal(X(:))))
+    assert(isclean(X));
 
     if nargin == 3 || nargin == 4
         assert(size(invCovar, 1) == size(L, 2) || size(invCovar, 2) == size(L, 2));

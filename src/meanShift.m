@@ -26,7 +26,8 @@ function [bestMean, bestScore, weights, stats] = meanShift(X, varargin)
 %   (adalca,klbouman,rameshvs@csail.mit.edu)
 
     % process inputs
-    [X, sigma, nReplicates, repMethod, thr, maxIters, nRange] = checkInputs(X, varargin{:});
+    [X, W, sigma, nReplicates, repMethod, thr, maxIters, nRange] = ...
+        checkInputs(X, varargin{:});
     
     % compute the grid and histogram of the points. 
     % This will be used to compute the score of every estimate.
@@ -64,6 +65,7 @@ function [bestMean, bestScore, weights, stats] = meanShift(X, varargin)
             % compute weights
             xDiff = bsxfun(@minus, X, meanEst);
             weights = exp(- 0.5 * (xDiff ./ sigma) .^ 2); 
+            weights = weights .* W;
             assert(sum(weights) ~= 0, 'Weights sum is 0. Increase sigma (%f) if appropriate', sigma);
 
             % compute the new mean estimate
@@ -104,16 +106,17 @@ function [bestMean, bestScore, weights, stats] = meanShift(X, varargin)
     stats.xRange = xRange;
 end
 
-function [X, sigma, nReplicates, repMethod, thr, maxIters, nRange] = checkInputs(varargin)
+function [X, W, sigma, nReplicates, repMethod, thr, maxIters, nRange] = checkInputs(varargin)
 
     p = inputParser();
     p.addRequired('X', @isvector);
-    p.addParamValue('sigma', -1, @isnumeric);
-    p.addParamValue('nReplicates', 10, @isnumeric);
-    p.addParamValue('repMethod', 'percentiles', @(x) strcmp(x, {'percentiles', 'random'}));
-    p.addParamValue('thr', -1, @isnumeric);
-    p.addParamValue('maxIters', 100, @isnumeric);
-    p.addParamValue('nRange', -1, @isnumeric);
+    p.addParameter('sigma', -1, @isnumeric);
+    p.addParameter('nReplicates', 10, @isnumeric);
+    p.addParameter('repMethod', 'percentiles', @(x) strcmp(x, {'percentiles', 'random'}));
+    p.addParameter('thr', -1, @isnumeric);
+    p.addParameter('maxIters', 100, @isnumeric);
+    p.addParameter('weights', [], @isnumeric);
+    p.addParameter('nRange', -1, @isnumeric);
     p.parse(varargin{:});
     
     X = double(p.Results.X(:));
@@ -122,6 +125,7 @@ function [X, sigma, nReplicates, repMethod, thr, maxIters, nRange] = checkInputs
     maxIters = p.Results.maxIters;
     
     % proper default for sigma
+    sigma = p.Results.sigma;
     if any(strcmp(p.UsingDefaults, 'sigma'))
         
         % optimal bandwidth suggested by Bowman and Azzalini (1997) p.31
@@ -132,15 +136,20 @@ function [X, sigma, nReplicates, repMethod, thr, maxIters, nRange] = checkInputs
     
     % proper default for thr, this is very heuristicky.
     if any(strcmp(p.UsingDefaults, 'thr'))
-        
         thr = sigma / 100;
     end
     
     % proper default for nRange, this is very heuristicky.
     if any(strcmp(p.UsingDefaults, 'nRange'))
         
-        nRange = max(numel(X) / 10, 1);
+        nRange = max(numel(X) / 10, 2);
     end    
+
+    W = p.Results.weights;
+    if isempty(W)
+        W = ones(size(X));
+    end
+    
 end
 
 function g = gaussKernel(delt)

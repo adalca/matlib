@@ -12,6 +12,8 @@ function varargout = dimsplit(dim, vol)
 %
 % Contact: adalca@mit
 
+    assert(isscalar(dim), 'only one dimension is supported. usage: dimsplit(dim, vol)');
+
     r = cell(1, ndims(vol));
     for i = 1:ndims(vol)
         if i == dim
@@ -23,7 +25,7 @@ function varargout = dimsplit(dim, vol)
     
     b = mat2cell(vol, r{:});
     
-    if nargout == 1
+    if nargout <= 1
         if size(vol, dim) > 1
             varargout{1} = b;
         else
