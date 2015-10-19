@@ -10,7 +10,8 @@ function isf = isfile(file, verbose)
 %
 % Author: Adrian Dalca
 
-    isf = ischar(file) && exist(file, 'file') == 2;
+    isc = ischar(file);
+    isf = isc && exist(file, 'file') == 2;
 
     if ~isf && nargin == 2 && verbose
         warning('IO:NOTFILE', 'Missing: %s', file);
