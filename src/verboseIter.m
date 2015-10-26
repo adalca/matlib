@@ -26,9 +26,11 @@ classdef verboseIter < handle
         % the waitbar handle and function message to display
         waitbarHandle = nan;
         funcMsg = '';
+        curfrac = -inf;
         
-        % verbose logical
+        % verbose values: 0 (none), 1 (waitbar), 2 (text)
         verbose = true;
+        verbosefreq = 0.001;
     end
     
     methods
@@ -38,28 +40,18 @@ classdef verboseIter < handle
         % optional: verbose (logical)
         % optional: funcMsg (string) - will be shown in text of waitbar
             
-            narginchk(1, 3);
-            assert(isvector(vector), 'vector can only be vector form');
-        
             % verbose defaults to true
             if nargin == 1
-                verbose = true;
+                verbose = 1;
             end
-            
-            
             
             % extract the last function if no funMsg is provided
             if nargin < 3
-                st = dbstack;
-                if numel(st) > 1
-                    funcMsg = st(2).name; % todo: look up caller
-                else
-                    funcMsg = '';
-                end
+                funcMsg = funcname(1);
             end
             
             % build the waitbar
-            if verbose
+            if verbose == 1
                 h = waitbar(eps, funcMsg);
                 vi.waitbarHandle = h;
             end
@@ -79,26 +71,34 @@ classdef verboseIter < handle
             end
             
             % first, print the waitbar with the previous 'current' index.
-            if obj.verbose
-                idx = obj.curIdx;
-                frac = idx/obj.nVector;
-                waitmsg = sprintf('%s: %d/%d (%3.1f%%) completed.', msg, idx, obj.nVector, frac*100);
-                waitbar(frac, obj.waitbarHandle, waitmsg); 
+            idx = obj.curIdx;
+            frac = idx/obj.nVector;
+            
+            if obj.verbose > 0 && frac >= (obj.curfrac + obj.verbosefreq);
+                obj.curfrac = frac;
+                waitmsg = sprintf('%s: %d/%d (%3.1f%%) completed', ...
+                    msg, idx, obj.nVector, frac*100);
                 
-                drawnow();
+                if obj.verbose  == 1
+                    waitbar(frac, obj.waitbarHandle, waitmsg); 
+                    drawnow();
+                else
+                    assert(obj.verbose == 2)
+                    disp(waitmsg);
+                end
             end
             
             % get the new index and update the curIdx field
             obj.curIdx = obj.curIdx + 1;
             idx = obj.curIdx;
             v = obj.vector(obj.curIdx);
-                
         end
         
         function close(obj)
-            close(obj.waitbarHandle);
-            % TODO: pause to actually show the waitbar, but can this actually slow down the op?
-            pause(0.0001);
+            if obj.verbose == 1
+                close(obj.waitbarHandle);
+                drawnow;
+            end
         end
 		
         function hn = hasNext(obj)
