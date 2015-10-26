@@ -50,7 +50,6 @@ function view2D(images, varargin)
 
 end
 
-
 function [images, nRows, nCols, inputs] = parseinputs(images, varargin)
 
     if isnumeric(images)
@@ -73,15 +72,4 @@ function [images, nRows, nCols, inputs] = parseinputs(images, varargin)
     end
     
     inputs = p.Results;
-end
-
-function [hei, len] = subgrid(N)
-% computation of subgrid, based on the screen size
-
-    screensize = get(0, 'Screensize');
-    W = screensize(3);
-    H = screensize(4);
-
-    hei = max(round(sqrt(N*H/W)), 1);
-    len = ceil(N/hei);
 end
