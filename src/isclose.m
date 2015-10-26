@@ -16,7 +16,7 @@ function bool = isclose(var1, var2, dst)
     end
     
     if ~isscalar(var2)
-        assert(all(size(var1) == size(var2)), '%i, %i\n', size(var1), size(var2));
+%         assert(all(size(var1) == size(var2)), '%i, %i\n', size(var1), size(var2));
     end
     isdouble = all(isa(var1(:), 'double')) & all(isa(var1(:), 'double'));
     islogical = all(isa(var1(:), 'logical')) & all(isa(var1(:), 'logical'));
