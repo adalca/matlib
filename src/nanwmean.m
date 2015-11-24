@@ -18,7 +18,8 @@ function y = nanwmean(x, w, dim)
     x(nans) = 0;
     w(nans) = 0;
     
-    s = sum(x .* w, dim);
+    x = x .* w;
+    s = sum(x, dim);
     z = sum(w, dim);
     z(z == 0) = NaN;
     y = s ./ z;
