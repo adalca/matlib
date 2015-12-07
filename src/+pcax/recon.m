@@ -14,6 +14,7 @@ function Xhat = recon(L, scores, Xbar)
 % Contact: {adalca,rameshvs}@mit.edu
 
     narginchk(2, 3);
+    assert(numel(scores) > 0);
     Xhat = L * scores;
     
     if nargin == 3
