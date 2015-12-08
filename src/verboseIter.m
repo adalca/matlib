@@ -11,7 +11,6 @@ classdef verboseIter < handle
 %
 %   See Also: hasNext, next, close
 %   
-% Project: Analysis of clinical datasets
 % Authors: Adrian Dalca
 % Contact: adalca@csail.mit.edu
 
