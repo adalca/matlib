@@ -1,5 +1,8 @@
 function warn(message, varargin)
-% adding some functionality on top of MATLAB's warning function. Specifically, 
+% adding some functionality on top of MATLAB's warning function. Specifically:
+%   - 'singleWarn' Parameter allows for a warning to be executed only once per session, even if the
+%   sys.warn() is called many times.
+%
 %   method still in development and might change. use with caution.
 %
 % TODO: allow for inputs and treatment in the style of warning() (i.e. sprintf)
