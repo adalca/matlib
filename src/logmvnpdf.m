@@ -20,7 +20,7 @@ function logp = logmvnpdf(x, mu, sigma, sigmainv)
 % built on top of Benjamin Dichter's code @
 %   http://www.mathworks.com/matlabcentral/fileexchange/34064-log-multivariate-normal-distribution-function
 %
-% See Also: mvnpdf
+% See Also: mvnpdf, logdet
 %
 % Contact: adalca@csail.mit.edu
 
