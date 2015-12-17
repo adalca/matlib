@@ -1,19 +1,28 @@
-function varargout = dimsplit(dim, vol)
+function varargout = dimsplit(dim, vol, opt)
 % DIMSPLIT inverse of CAT
-%   [a, b, c, ...] = dimsplit(dim, vol) split volume vol along dimension dim
-%   d = dimsplit(dim, vol) will give a cell d which contains all of the volumes {a, b, c, ...},
-%   unless there is only a single volume (i.e. size(vol, dim) == 1), in which case it returns the
-%   volume
+%
+%   vc = dimsplit(dim, vol) split volume vol along dimension dim, retuning a cell vc which contains
+%   all of the appropriate subvolumes such that vol = cat(dim, vc{:});
+%
+%   [a, b, c, ...] = dimsplit(dim, vol, 'sep') allows for separate outputs [a, b, c, ...] where each
+%   output is a separate subvolume, such that vol = cat(dim, a, b, c, ...).
 %
 % Example:
 %   r = rand(4, 4, 3);
-%   [a, b, c] = dimsplit(3, r)
+%   [a, b, c] = dimsplit(3, r, 'sep')
 %   results in a, b, and c each being 4x4 random matrices, the three channels of r.
 %
 % Contact: adalca@mit
 
+    narginchk(2, 3);
     assert(isscalar(dim), 'only one dimension is supported. usage: dimsplit(dim, vol)');
-
+    
+    if nargin == 2
+        opt = 'cell';
+    end
+    assert(ismember(opt, {'sep', 'cell'}), 'dimsplit: third argument must be ''sep'' or ''cell''');
+    
+    % prepare mat2cell breakup structure
     r = cell(1, ndims(vol));
     for i = 1:ndims(vol)
         if i == dim
@@ -23,16 +32,12 @@ function varargout = dimsplit(dim, vol)
         end
     end
     
+    % split up
     b = mat2cell(vol, r{:});
-    
-    if nargout <= 1
-        if size(vol, dim) > 1
-            varargout{1} = b;
-        else
-            varargout{1} = b{1};
-        end
+
+    % prepare appripriate output
+    if strcmp(opt, 'sep')
+        varargout = b;
     else
-        varargout = cell(size(vol, dim), 1);
-        [varargout{:}] = b{:};
+        varargout{1} = b;
     end
-    
