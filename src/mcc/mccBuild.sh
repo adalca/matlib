@@ -5,12 +5,12 @@
 #
 # usage: mccBuild.sh mccRunDir mainMfile mccOutputDir path1 path2 ...
 # usually, path1 is the project path, path2 and later are toolbox path(s)
-mccBuild \
-  /path/to/bin/mcc \
-  /path/to/coolCode.m \
-  /path/to/MCC/MCC_coolCode \
-  /addpath1 \
-  /addpath2
+# mccBuild \
+#   /path/to/bin/mcc \
+#   /path/to/coolCode.m \
+#   /path/to/MCC/MCC_coolCode \
+#   /addpath1 \
+#   /addpath2
 
 # settings
 execdir=`pwd -P`
@@ -30,7 +30,7 @@ cmd="${mccRunDir} -C -m ${mainMFile}"
 # add extra paths
 for i in `seq 4 $#`
 do
-  cmd="${cmd} -a ${i}"
+  cmd="${cmd} -a ${!i}"
 done
 
 # print and run command
