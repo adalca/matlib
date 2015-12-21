@@ -1,5 +1,5 @@
 % kernel regression
-function m = kernelRegress(X, Y, interpX, h)
+function [m, interpX] = kernelRegress(X, Y, interpX, h)
 % X is Nx1
 % Y is NxD, D is dimentionality
     
@@ -14,10 +14,10 @@ function m = kernelRegress(X, Y, interpX, h)
     if ~exist('h', 'var') 
         % optimal bandwidth suggested by Bowman and Azzalini (1997) p.31
         % these next few lines for h are taken from ksr.m, By Yi Cao 
-        hx=median(abs(interpX-median(interpX)))/0.6745*(4/3/r.n)^0.2;
-        hy=median(abs(Y-median(Y)))/0.6745*(4/3/r.n)^0.2;
+        hx=median(abs(interpX-median(interpX)))/0.6745*(4/3/numel(interpX))^0.2;
+        hy=median(abs(Y-median(Y)))/0.6745*(4/3/numel(Y))^0.2;
         h=sqrt(hy*hx);
-        if h<sqrt(eps)*N
+        if h<sqrt(eps)*numel(X)
             error('There is no enough variation in the data. Regression is meaningless.')
         end
     end
