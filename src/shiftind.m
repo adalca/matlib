@@ -1,5 +1,5 @@
 function sind = shiftind(volSize, ind, shiftamt)
-% shift linear indexes in original space
+% SHIFTIND shift linear indexes in original space
 %
 % sind = shiftind(volSize, ind, shiftamt)
 %
