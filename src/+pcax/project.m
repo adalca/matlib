@@ -14,6 +14,12 @@ function scores = project(X, L, invCovar, lambda)
 %   Warning: be careful about centered and non-centered data. We tend to work with centered data,
 %   and subtract/add the mean when necessary.
 %
+%   Example:
+%   X = bsxfun(@minus, X,  mean(X, 2))
+%   [c, s] = pca(X');
+%   z = pcax.project(X, c)';
+%   isclose(s, z)'
+%
 % Contact: {adalca,rameshvs}@mit.edu
 
     % check inputs
@@ -41,7 +47,7 @@ function scores = project(X, L, invCovar, lambda)
     assert(~any(isnan(denom(:))));
     
     e = eye(size(L, 2));
-    if ~all(denom(:) == e(:))
+    if ~all(all(isclose(denom, e))); %all(denom(:) == e(:))
         warning('project: L''L is not identity');
     end
         
