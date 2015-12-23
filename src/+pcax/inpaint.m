@@ -30,6 +30,8 @@ function Xhat = inpaint(X, varargin)
     % compute C' * inv(B) * b
     Xhat = X;
     Xhat(invalid, :) = C' * (B \ b);
+    
+    assert(isclean(Xhat));
 end
 
 function [X, covar] = parseInputs(X, varargin)
@@ -42,12 +44,13 @@ function [X, covar] = parseInputs(X, varargin)
         if isvector(S)
             S = diag(S);
         end
+        % U * diag(Sigma) * inv(U)
         covar = L * S / L;
     else
         covar = varargin{1};
     end
     
-    % if X is a matrix, all valid maps must match for this method.
+    % if X is a matrix, all valid maps must match for this method implementation.
     assert(all(any(isnan(X), 2) == all(isnan(X), 2)));
     
     % check that covariance size makes sense
