@@ -19,6 +19,7 @@ function [dst, labels] = dice(vol1, vol2, labels)
     if nargin < 3 
         labels = unique([vol1(:); vol2(:)]);
     end
+    assert((ndims(vol1) == ndims(vol2)) && all(size(vol1) == size(vol2)));
 
     % go through labels
     dst = zeros(numel(labels), 1);
