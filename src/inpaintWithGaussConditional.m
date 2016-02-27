@@ -1,4 +1,4 @@
-function [Xhat, invBb] = inpaintWithGaussConditional(X, mu, covar)
+function [Xhat, invBb, newSigma] = inpaintWithGaussConditional(X, mu, covar)
 % INPAINTWITHGAUSSCONDITIONAL inpaint missing values of a feature vector given the gaussian
 % distribution it's drawn from
 %
@@ -10,8 +10,8 @@ function [Xhat, invBb] = inpaintWithGaussConditional(X, mu, covar)
 %
 % Xhat is the same size as X. 
 %
-% [Xhat, B, C] = inpaintWithGaussConditional(X, mu, covar) also return B = covar(valid, valid) and C
-% = covar(valid, invalid);
+% [Xhat, B, newSigma] = inpaintWithGaussConditional(X, mu, covar) also return B = covar(valid,
+% valid) and the new Sigma
 %
 % TODO: compare with pinv, inv. Perhaps return Binv?
 
@@ -51,4 +51,10 @@ function [Xhat, invBb] = inpaintWithGaussConditional(X, mu, covar)
     
     % make sure the returned X is clean
     assert(isclean(Xhat));
+    
+    % newSigma of unknowns
+    if nargout > 2
+        A = covar(invalid, invalid);
+        newSigma = A - C' * (B \ C);
+    end
 end
