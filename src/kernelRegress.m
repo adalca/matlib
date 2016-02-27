@@ -21,14 +21,9 @@ function [m, interpX] = kernelRegress(X, Y, interpX, h)
             error('There is no enough variation in the data. Regression is meaningless.')
         end
     end
-
-
-
-
-
+    
     m = zeros(numel(interpX), dim);
     for i = 1:numel(interpX)
-        i
         g = 1/h * gaussKernel((interpX(i) - X) ./ h) ;
         gY = bsxfun(@times, g, Y);
         m(i, :) = sum(gY) ./ sum(g);
