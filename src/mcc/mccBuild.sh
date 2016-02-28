@@ -25,7 +25,7 @@ mkdir -p $mccDir
 cd $mccDir
 
 # initiate command to run
-cmd="${mccRunDir} -N -C -m ${mainMFile}"
+cmd="${mccRunDir} -C -m ${mainMFile}"
 
 # add extra paths
 for i in `seq 4 $#`
