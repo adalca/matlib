@@ -19,6 +19,10 @@ function outFileName = fastgzip(inFileName, outputFolder)
     if nargin == 1
         outputFolder = currentOutputFolder;
     end
+ 
+    if ~sys.isdir(outputFolder)
+        mkdir(outputFolder);
+    end
     
     if ~ispc
         % construct output filename
