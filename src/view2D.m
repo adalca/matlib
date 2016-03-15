@@ -21,7 +21,7 @@ function view2D(images, varargin)
 
     % open figure
     if isscalar(inputs.figureHandle) && inputs.figureHandle == -1
-        figuresc()
+        figuresc();
     else
         figure(inputs.figureHandle);
     end
