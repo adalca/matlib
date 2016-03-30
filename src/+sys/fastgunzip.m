@@ -21,6 +21,10 @@ function outFileName = fastgunzip(inFileName, outputFolder)
         outputFolder = currentOutputFolder;
     end
     
+    if ~sys.isdir(outputFolder)
+        mkdir(outputFolder);
+    end
+    
     if ~ispc
         % construct output filename
         outFileName = fullfile(outputFolder, name);
