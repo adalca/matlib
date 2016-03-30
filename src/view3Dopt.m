@@ -110,8 +110,8 @@ function tile = tileGrid(nViews, monitorID, nRows)
     screensize = mp(monitorID, :);
     tile.xStart = screensize(1);
     tile.yStart = screensize(2) + (mp(1, 4) - screensize(4) - 1);
-    tile.width = screensize(3) - screensize(1) + 1;
-    tile.height = screensize(4) - screensize(2) + 1;
+    tile.width = screensize(3); % R2014a and earlier would need: - screensize(1) + 1;
+    tile.height = screensize(4);  % R2014a and earlier would need: - screensize(2) + 1;
 
     % compute the number of columns and rows.
     if nargin == 2
