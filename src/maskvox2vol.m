@@ -25,7 +25,8 @@ function vol = maskvox2vol(data, mask, func)
     
     % prepare the volume
     if nargin == 3
-        rvol = func(rvolsize);
+        rvolsizeincell = mat2cellsplit(rvolsize);
+        rvol = func(rvolsizeincell{:});
         
     else    
         if islogical(data)
