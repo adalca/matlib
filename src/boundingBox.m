@@ -23,15 +23,21 @@ function [croppedVol, cropMask, cropArray, bBox] = boundingBox(vol)
     bBox = stats.BoundingBox;
     clear stats;
     
+    % regionprops returns the middle of the voxel. We want the location in terms of voxel space. So
+    % if the second voxel is non-zero, we want '2' not '1.5'
+    assert(rem(bBox(1), 1) == 0.5, 'regionprops() assumption is broken');
+    bBox(1:nDims) = ceil(bBox(1:nDims));
+    
+    
     % switch x and y values - here matlab puts second dimension first in the style of image
     % treatments, where it puts 'x', which is the second dimension, first.
     [bBox(1), bBox(2)] = switchValues(bBox(1), bBox(2));
     [bBox(nDims + 1), bBox(nDims + 2)] = switchValues(bBox(nDims + 1), bBox(nDims + 2));
 
     % crop the image  
-    rangeStart = max(floor(bBox(1:nDims)), 1);
-    rangeWidth = min(ceil(bBox(nDims+1:end)), size(vol) - rangeStart);
-    [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeStart + rangeWidth);
+    rangeStart = bBox(1:nDims);
+    rangeWidth = bBox(nDims+1:end);
+    [croppedVol, cropArray] = cropVolume(vol, rangeStart, rangeStart + rangeWidth - 1);
 
     % get crop mask
     v = false(size(vol));
