@@ -1,8 +1,16 @@
 function vol = maskvox2vol(data, mask, func)
-%   data is nElems x nSubj
-%   mask is size of volume desired, with sum(mask(:)) = nElems
+% Create full volumes given a subsample of volume elements (voxels) and the mask of where they
+% belong.
+%   
+% vol = maskvox2vol(data, mask) % given the voxel volumes in data and volume mask, returns a volume
+% the same size and shape as "mask" but with the voxels in "data" filled in where mask is true.
 %
+%   mask is size of volume desired, with sum(mask(:)) = nElems
+%   data is nElems x nVols
 %   vol is size of : [size(mask) nSubj]
+%
+% vol = maskvox2vol(data, mask, func) allows for a functional initialization of vol (e.g. using
+% nan() instead of zeros() ).
 %
 %   Example:
 %     data = rand(10, 7);
@@ -10,70 +18,36 @@ function vol = maskvox2vol(data, mask, func)
 %     mask = [true(1, 10), false(1, 15)];
 %     mask = mask(r);
 %     mask = reshape(mask, [5, 5])
-%     vol = maskvox2vol(data, mask);
-%     volnan = maskvox2vol(data, mask, @nan);
+%     volWithZeros = maskvox2vol(data, mask);
+%     volWithNans = maskvox2vol(data, mask, @nan);
 %
 % Author: adalca@mit.edu
 
     narginchk(2, 3);
+    
+    % if the data is a vector, and th enumber of elements is equal to the number of true voxels in
+    % the mask, then assume the use meant a vertical vector
+    if isrow(data) && numel(data) == sum(mask(:)),
+        data = data';
+    end
+    
     % processing due to vector vs matrix treatment
     maskSize = ifelse(isvector(mask), numel(mask), size(mask));
     dataSize = size(data);
     volsize = [maskSize, dataSize(2:end)];
     rvolsize = [numel(mask), dataSize(2:end)];
     
-    
-    % prepare the volume
-    if nargin == 3
-        rvolsizeincell = mat2cellsplit(rvolsize);
-        rvol = func(rvolsizeincell{:});
-        
-    else    
-        if islogical(data)
-            rvol = false(rvolsize);
-%             func = @false;
-        else
-            rvol = zeros(rvolsize, class(data));
-%             func = @zeros;
-        end
+    % prepare the functional initialization
+    if nargin == 2 && islogical(data)
+        func = @false;
+    elseif nargin == 2
+        func = @zeros;
     end
+    
+    % initialize output volume
+    rvol = func(rvolsize);
         
-    % TODO: TRY SOLUTION VERY SIMPLE
     % reshape mask to mask(:), then do stuff simply, then reshape vol @ end.
     rmask = repmat(mask(:), [1, dataSize(2:end)]);
     rvol(rmask) = data;
     vol = reshape(rvol, volsize);
-
-    
-    %     
-%     nDims = ifelse(isvector(mask), 1, ndims(mask));
-%     [range, map] = getNdRange(usesize);
-%     r = range(1:nDims);
-%     map(r{:}, :)
-%     
-%     range(1) = [];
-%     vol(mask, range{:}) = data;
-%     
-%     
-%     
-%     if size(data, 2) == 1
-%         vol(mask) = data;
-%         
-%     else
-%         
-% 
-%         % get mask
-%         range = cell(nDims + 1, 1);
-%         for d = 1:nDims
-%             range{d} = 1:size(mask, d);
-%         end
-% 
-%         % put in the volumes
-%         for i = 1:size(data, 2)
-%             tmpvol = maskvox2vol(data(:, i), mask, func);
-% 
-%             range{nDims + 1} = i;
-%             vol(range{:}) = tmpvol;
-%         end
-%     end
-
