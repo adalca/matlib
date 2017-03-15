@@ -37,6 +37,8 @@ function dst = bw2sdtrf(bwimg, sc)
         assert(exist('bwdistsc', 'file') == 2, msg);
         fcn = @bwdistsc;
         args = {sc};
+    else
+        sc = ones(1, ndims(bwimg));
     end
     
     % get the positive distances

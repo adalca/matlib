@@ -11,6 +11,7 @@ function bool = isclose(var1, var2, dst)
 %   Author: Adrian Dalca
 %   http://www.mit.edu/~adalca/
 
+    narginchk(2,3);
     if nargin == 2
         dst = 1e-5;
     end
@@ -19,6 +20,7 @@ function bool = isclose(var1, var2, dst)
 %         assert(all(size(var1) == size(var2)), '%i, %i\n', size(var1), size(var2));
     end
     isdouble = all(isa(var1(:), 'double')) & all(isa(var1(:), 'double'));
+    issingle = all(isa(var1(:), 'single')) & all(isa(var1(:), 'single'));
     islogical = all(isa(var1(:), 'logical')) & all(isa(var1(:), 'logical'));
-    assert(isdouble | islogical);
+    assert(isdouble | issingle | islogical);
     bool = abs(var1 - var2) < dst;
