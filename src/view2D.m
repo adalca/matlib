@@ -65,10 +65,19 @@ function [images, nRows, nCols, inputs] = parseinputs(images, varargin)
     p.parse(images, varargin{:});
     
     if isscalar(p.Results.subgrid) && p.Results.subgrid == -1
-        [nRows, nCols] = subgrid(numel(images));
+        % note: ismatrix of cell just tells us if the cell is 2d or larger
+        if ismatrix(images) && size(images,1) > 1 && size(images,2) > 1
+            [nRows, nCols] = size(images);
+        else
+            [nRows, nCols] = subgrid(numel(images));
+        end
     else
         nRows = p.Results.subgrid(1);
         nCols = p.Results.subgrid(2);
+    end
+    
+    if ismatrix(images) % if allready arranged, need to transpose due to how subplot works
+        images = images';
     end
     
     inputs = p.Results;
