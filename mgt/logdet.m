@@ -7,14 +7,13 @@ function Y = logdet(X)
 %
 % contact: adalca at csail
 
-    % input checking 
+    % input checking w
     narginchk(1, 1);
-    assert(ismatrix(X), 'A must be a matrix');
     [S, S2, K] = size(X);
     assert(S == S2, 'A must be square')
 
     % compute the determinant
-    Y = zeros(K, 1);
+    Y = zeros(K, 1, class(X));
     for i = 1:K
         det = diag(chol(X(:, :, i)))';
         Y(i) = 2*sum(log(det), 2);
