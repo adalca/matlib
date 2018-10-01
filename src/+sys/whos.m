@@ -35,7 +35,7 @@ function varargout = whos(varargin)
     % parse option atguments
     optargs = varargin(f+1:end);
     p = inputParser();
-    p.addParamValue('sort', 'bytes', @isstr);
+    p.addParameter('sort', 'bytes', @isstr);
     p.parse(optargs{:});
 
      % sort
@@ -44,8 +44,8 @@ function varargout = whos(varargin)
     % print in format:
     % Name Size Bytes Class Attributes
     for i = si
-        fprintf('%20s', S(i).name);
-        fprintf('%30s', sizestr(S(i).size));
+        fprintf('%30s', S(i).name);
+        fprintf('%20s', sizestr(S(i).size));
         fprintf('%15s', humanReadableBytes(S(i).bytes));
         fprintf('%20s\n', S(i).class);
     end
@@ -56,7 +56,7 @@ function str = whoscallerstr(varargin)
 % build the string of the whos() call
     
     str = 'whos(';
-    for i = 1:numel(varargin);
+    for i = 1:numel(varargin)
         str = sprintf('%s''%s''', str, varargin{i});
         if i < numel(varargin); str = sprintf('%s,', str); end
     end
@@ -69,7 +69,7 @@ function str = sizestr(sz)
     str = '';
     for s = 1:numel(sz)
         str = sprintf('%s%d', str, sz(s));
-        if s < numel(sz), 
+        if s < numel(sz)
             str = sprintf('%sx', str); 
         end
     end
