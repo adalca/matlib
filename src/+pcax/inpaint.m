@@ -4,7 +4,7 @@ function Xhat = inpaint(X, varargin)
 %   PCA eigenvalues S. X should be of size M x nExperiments, L is PCA space loading images, M x N
 %   ('coeff' returned from MATLAB's pca()). S is a vector of size N or a diagnoal NxN matrix.
 %
-%   inpaint(X, C) inpaint missing features in X given a M x M PCA covariance matrix
+%   inpaint(X, covar) inpaint missing features in X given a M x M PCA covariance matrix
 %
 % Algorithm:
 %   reconstruct a via p(a|b) ~ N(C' inv(B) b, A - (C' inv(B) C))
@@ -14,6 +14,8 @@ function Xhat = inpaint(X, varargin)
 %   source: https://gbhqed.wordpress.com/2010/02/21/conditional-and-marginal-distributions-of-a-multivariate-gaussian/ 
 %
 % Contact: {klbouman,adalca}@csail.mit.edu
+
+    warning('inpaintWithGaussConditional');
 
     % inputs
     [X, covar] = parseInputs(X, varargin{:});
