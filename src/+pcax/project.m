@@ -51,7 +51,7 @@ function scores = project(X, L, invCovar, lambda)
         warning('project: L''L is not identity');
     end
         
-    if nargin == 4
+    if nargin >= 3
         denom = denom + lambda * invCovar;
     end
     assert(~any(isnan(denom(:))));
