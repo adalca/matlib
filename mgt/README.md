@@ -1,5 +1,5 @@
-MATLAB General Toolset
-======================
+MGT
+====
 
 Matlab General Toolset
 
