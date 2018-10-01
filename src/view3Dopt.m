@@ -93,7 +93,7 @@ function [nfo, tile] = viewGrid(nViews, tile)
     end
 end
 
-function tile = tileGrid(nViews, monitorID, nRows)
+function tile = tileGrid(nViews, monitorInfo, nRows)
 % output a tile structure for this monitor, with fields 
 %   titlebarheight, xStart, yStart, width, height, nRows, nCols, winwidth, winheight.
 %
@@ -106,12 +106,19 @@ function tile = tileGrid(nViews, monitorID, nRows)
     % get the size of the screen
     % for a single screen, screensize = get(0,'ScreenSize'); would work
     % but we want to support multiple screens. 
-    mp = get(0, 'MonitorPositions');
-    screensize = mp(monitorID, :);
+    if numel(monitorInfo) > 1
+        assert(numel(monitorInfo) == 4) 
+        screensize = monitorInfo;
+        mp = screensize;
+    else
+        mp = get(0, 'MonitorPositions');
+        screensize = mp(monitorInfo, :);
+        mp = screensize;
+    end
     tile.xStart = screensize(1);
-    tile.yStart = screensize(2) + (mp(1, 4) - screensize(4) - 1);
+    tile.yStart = screensize(2) + (mp(1, 4) - screensize(4) - 1) + 50; % 100 to avoid the taskbar
     tile.width = screensize(3); % R2014a and earlier would need: - screensize(1) + 1;
-    tile.height = screensize(4);  % R2014a and earlier would need: - screensize(2) + 1;
+    tile.height = screensize(4) - 50;  % R2014a and earlier would need: - screensize(2) + 1;
 
     % compute the number of columns and rows.
     if nargin == 2
@@ -149,11 +156,11 @@ function [vols, inputs] = parseinputs(varargin)
 
     % parse parameters
     p = inputParser();
-    p.addParamValue('link', true, @islogical);
-    p.addParamValue('tilehorz', false, @islogical);
-    p.addParamValue('tilefull', true, @islogical);
-    p.addParamValue('monitorId', 1, @isscalar);
-    p.addParamValue('voxMask', false, @islogical);  % requies maskvox2vol()
+    p.addParameter('link', true, @islogical);
+    p.addParameter('tilehorz', false, @islogical);
+    p.addParameter('tilefull', true, @islogical);
+    p.addParameter('monitorId', 1, @(x) isscalar(x) || isvector(x));
+    p.addParameter('voxMask', false, @islogical);  % requies maskvox2vol()
     p.parse(extraOpts{:});
 
     % save input options
