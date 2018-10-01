@@ -1,4 +1,4 @@
-function [Xhat, invBb, newSigma] = inpaintWithGaussConditional(X, mu, covar)
+function [Xhat, invBb, newSigma] = inpaintWithGaussConditional(X, mu, covar, rankGuaranteed)
 % INPAINTWITHGAUSSCONDITIONAL inpaint missing values of a feature vector given the gaussian
 % distribution it's drawn from
 %
@@ -13,10 +13,13 @@ function [Xhat, invBb, newSigma] = inpaintWithGaussConditional(X, mu, covar)
 % [Xhat, B, newSigma] = inpaintWithGaussConditional(X, mu, covar) also return B = covar(valid,
 % valid) and the new Sigma
 %
+% rankGuaranteed guarantees the rank of covar is full, and therefore forces inverse(covar) to
+% happen. Use with care. This helps runtime since the rank() function is slow.
+%
 % TODO: compare with pinv, inv. Perhaps return Binv?
 
     % some input checking
-    narginchk(3, 3);
+    narginchk(3, 4);
     
     % if X is a matrix, all valid maps must match for this method implementation.
     assert(all(any(isnan(X), 2) == all(isnan(X), 2)));
@@ -38,7 +41,8 @@ function [Xhat, invBb, newSigma] = inpaintWithGaussConditional(X, mu, covar)
     
     % compute C' * inv(B) * b
     Xhat = X;
-    if rank(B) == size(B, 1)
+    rankB = rank(B);
+    if (nargin >= 4 && rankGuaranteed) || rankB == size(B, 1)
         invBb = B \ b;
     else
         warning('Gaussian Conditional Inpainting: using pinv because of low rank covariance matrix');
