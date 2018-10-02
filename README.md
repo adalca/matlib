@@ -1,9 +1,6 @@
-MATLAB General Toolset
+matlib
 ======================
-
-Matlab General Toolset
-
-A set of general MATLAB tools.
+A Matlab general library. Here's a sampling of tools split across four folders:
 
 ### mgt 
 matlab general toolset: tools useful in general matlab code  
