@@ -22,9 +22,9 @@ function gimgs = frames2mat(filepath, varargin)
     % setup parameter inputs and defaults
     p = inputParser;
     p.addRequired('filepath', @check_in_name);               
-    p.addParamValue('frames', -1, @isnumeric);
-    p.addParamValue('color', true, @islogical);
-    p.addParamValue('verbose', ispc(), @islogical);
+    p.addParameter('frames', -1, @isnumeric);
+    p.addParameter('color', true, @islogical);
+    p.addParameter('verbose', ispc(), @islogical);
     parse(p, filepath, varargin{:});
 
     % if windows, make sure you have double slashed for file separators
@@ -45,12 +45,12 @@ function gimgs = frames2mat(filepath, varargin)
     colInput = ndims(img) == 3;
     colOutput = p.Results.color;
     if colOutput && ~colInput
-        warning('FRAMES2MAT:COLOR', 'Color output required, but grayscale input found. Switching to B&W output');
+        colmsg = 'Color output required, but grayscale input found. Switching to B&W output';
+        warning('FRAMES2MAT:COLOR', colmsg);
         colOutput = false;
     end
     clear img;
     
-
 
     % build the mat volume
     channels = ifelse(colOutput, 3, 1);
@@ -68,7 +68,9 @@ function gimgs = frames2mat(filepath, varargin)
         gimgs(:,:, :, i) = frame;
 
         % update progress bar
-        if p.Results.verbose, waitbar(i/nFrames, h, sprintf('Loaded %i/%i frames', i, nFrames)); end
+        if p.Results.verbose
+            waitbar(i/nFrames, h, sprintf('Loaded %i/%i frames', i, nFrames));
+        end
     end
     
     if p.Results.verbose

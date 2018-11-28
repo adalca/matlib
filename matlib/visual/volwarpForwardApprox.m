@@ -38,6 +38,12 @@ function [warpedvol, varargout] = volwarpForwardApprox(vol, warp, varargin)
 % weight contributing to each voxel), but these take extra time to compute and are meant as
 % debugging variables only.
 %
+% If you use this code and publish, please cite the publication for which we wrote this:
+%   A.V. Dalca, A. Bobu, N.S. Rost, P. Golland. 
+%   Patch-Based Discrete Registration of Clinical Brain Images 
+%   In Proc. MICCAI-PATCHMI Patch-based Techniques in Medical Imaging, LNCS 9993, pp 60-67, 2016.
+%   and see https://github.com/adalca/patchRegistration
+%
 % TODO: we're currently not voting for some voxels due to the warp field expanding, say. One idea is
 % to sub-sample the volume (say, by resizing it to twice its size), as well as the warps. Then, run
 % this algorithm and vote. Then, downsample back to the original volume size. This would potentially
